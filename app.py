@@ -69,7 +69,10 @@ with col1:
     st.header('Inbox')
     if st.button('Load mock inbox'):
         load_mock_emails(str(MOCK_PATH))
-        st.experimental_rerun()
+        try:
+            st.experimental_rerun()
+        except Exception:
+            st.success('Mock inbox loaded. Please refresh the page to see the messages.')
     st.markdown('**Inbox controls**')
     with st.expander('IMAP Ingest (read-only)'):
         st.write('Fetch emails from an IMAP server into the local DB (read-only). Credentials are not stored by the app. Use app passwords or OAuth when possible.')
@@ -98,7 +101,10 @@ with col1:
                                   (m['id'], m['sender'], m['subject'], m['timestamp'], m['body']))
                     conn.commit(); conn.close()
                     st.success(f'Fetched {len(msgs)} messages.')
-                    st.experimental_rerun()
+                    try:
+                        st.experimental_rerun()
+                    except Exception:
+                        st.info('Messages fetched. Please refresh to see them in the inbox.')
                 except Exception as e:
                     st.error(f'IMAP error: {e}')
     emails = get_emails()
@@ -163,7 +169,10 @@ with col2:
             tasks = llm.extract_actions(email.get('body',''), act_prompt)
             save_processed(selected, categories, tasks)
             st.success('Processed and saved.')
-            st.experimental_rerun()
+            try:
+                st.experimental_rerun()
+            except Exception:
+                st.info('Processing complete. Please refresh the page to see updated results.')
 
         st.markdown('---')
         st.subheader('Chat Assistant')
@@ -195,7 +204,10 @@ with col2:
             body = draft.get('body') or draft.get('text') or str(draft)
             save_draft(selected, subj, body, {'generated_by': 'llm', 'tone': tone})
             st.success('Draft generated and saved.')
-            st.experimental_rerun()
+            try:
+                st.experimental_rerun()
+            except Exception:
+                st.info('Draft saved. Please refresh to view the draft list.')
 
         if cols[2].button('Show drafts'):
             drafts = get_drafts(selected)
