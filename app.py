@@ -76,10 +76,36 @@ with col1:
     st.markdown('**Inbox controls**')
     with st.expander('IMAP Ingest (read-only)'):
         st.write('Fetch emails from an IMAP server into the local DB (read-only). Credentials are not stored by the app. Use app passwords or OAuth when possible.')
-        imap_server = st.text_input('IMAP server (e.g., imap.gmail.com)')
+        provider = st.selectbox('Email provider', ['Custom', 'Gmail', 'Outlook/Office365', 'Yahoo', 'iCloud', 'AOL', 'Fastmail', 'Zoho', 'ProtonMail'])
+        provider_hosts = {
+            'Gmail': 'imap.gmail.com',
+            'Outlook/Office365': 'outlook.office365.com',
+            'Yahoo': 'imap.mail.yahoo.com',
+            'iCloud': 'imap.mail.me.com',
+            'AOL': 'imap.aol.com',
+            'Fastmail': 'imap.fastmail.com',
+            'Zoho': 'imap.zoho.com',
+            'ProtonMail': '127.0.0.1'  # note: ProtonMail needs Bridge; placeholder
+        }
+        default_server = provider_hosts.get(provider, '') if provider != 'Custom' else ''
+        imap_server = st.text_input('IMAP server (e.g., imap.gmail.com)', value=default_server if not st.session_state.get('imap_server') else st.session_state.get('imap_server'))
         imap_user = st.text_input('Username (email)')
         imap_pass = st.text_input('Password / App password', type='password')
         imap_limit = st.number_input('Max messages to fetch', value=50, min_value=1, max_value=500)
+
+        # Provider-specific guidance
+        notes = {
+            'Gmail': 'Gmail: enable IMAP in Settings and use an App Password if your account has 2FA. Do not use your normal Google password.',
+            'Outlook/Office365': 'Outlook/Office365: modern tenants may require OAuth. Try your account password or use OAuth for long-term integrations.',
+            'Yahoo': 'Yahoo: if you have 2FA enabled, create an app password.',
+            'iCloud': 'iCloud: generate an app-specific password for third-party apps.',
+            'AOL': 'AOL: standard IMAP host is imap.aol.com.',
+            'Fastmail': 'Fastmail: use your Fastmail credentials or app-specific password.',
+            'Zoho': 'Zoho: use imap.zoho.com and app password if 2FA is enabled.',
+            'ProtonMail': 'ProtonMail: requires ProtonMail Bridge (desktop app) — enter the Bridge host/port here; direct IMAP is not supported.'
+        }
+        if provider != 'Custom' and provider in notes:
+            st.info(notes[provider])
         if st.button('Fetch from IMAP'):
             if not (imap_server and imap_user and imap_pass):
                 st.error('Please provide IMAP server, username, and password.')
