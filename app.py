@@ -5,6 +5,7 @@ import json
 from db import init_db, load_mock_emails, get_emails, get_email, save_processed, get_processed, get_prompts, save_prompt, save_draft, get_drafts
 import llm
 from imap_ingest import fetch_imap_emails
+import streamlit.components.v1 as components
 
 BASE = Path(__file__).parent
 DATA_DIR = BASE / 'data'
@@ -25,6 +26,20 @@ def local_css():
     )
 
 local_css()
+
+def _show_reload_script(delay_ms: int = 800):
+    # small client-side reload fallback when st.experimental_rerun isn't available
+    components.html(f"<script>setTimeout(function(){{location.reload();}}, {delay_ms});</script>", height=0)
+
+def _friendly_imap_error(exc: Exception):
+    # parse common IMAP errors and show a friendly message
+    msg = str(exc)
+    if 'Application-specific password required' in msg or 'APP-PASSWORD' in msg or 'application-specific password' in msg.lower():
+        st.error("IMAP error: Your provider requires an application-specific (app) password. For Gmail, create an App Password: https://support.google.com/accounts/answer/185833")
+    elif 'AUTHENTICATIONFAILED' in msg.upper():
+        st.error('IMAP error: Authentication failed — check username and password, and ensure IMAP is enabled for the account.')
+    else:
+        st.error(f'IMAP error: {msg}')
 
 init_db()
 
@@ -194,12 +209,14 @@ with col1:
                                   (m['id'], m['sender'], m['subject'], m['timestamp'], m['body']))
                     conn.commit(); conn.close()
                     st.success(f'Fetched {len(msgs)} messages.')
+                    # client-side refresh fallback
                     try:
                         st.experimental_rerun()
                     except Exception:
-                        st.info('Messages fetched. Please refresh to see them in the inbox.')
+                        st.info('Messages fetched. Refreshing...')
+                        _show_reload_script(800)
                 except Exception as e:
-                    st.error(f'IMAP error: {e}')
+                    _friendly_imap_error(e)
         # Add a small credential tester that only attempts to login and reports success/failure
         if st.button('Test IMAP credentials'):
             import imaplib
@@ -213,7 +230,7 @@ with col1:
                     M.logout()
                     st.success('IMAP login successful — credentials look valid.')
                 except Exception as e:
-                    st.error(f'IMAP login failed: {e}')
+                    _friendly_imap_error(e)
     emails = get_emails()
     # show a nicer list with previews and small badges
     st.markdown('**Messages**')
