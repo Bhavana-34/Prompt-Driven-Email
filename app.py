@@ -17,98 +17,261 @@ def local_css():
     st.markdown(
         """
         <style>
-        .stApp { 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
         }
-        .main-container {
-            background: white;
+        
+        .stApp { 
+            background: linear-gradient(to bottom right, #0f0c29, #302b63, #24243e);
+            color: #e0e0e0;
+        }
+        
+        .main-header {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 16px;
             padding: 20px;
-            margin: 10px 0;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            margin: 15px 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .email-card { 
-            padding: 16px; 
-            border-radius: 12px; 
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-            margin: 10px 0;
-            transition: transform 0.2s, box-shadow 0.2s;
+        
+        .glass-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+            border-color: rgba(138, 180, 248, 0.5);
         }
+        
+        .email-card {
+            background: linear-gradient(135deg, rgba(138, 180, 248, 0.1) 0%, rgba(83, 122, 255, 0.05) 100%);
+            border-left: 4px solid #8ab4f8;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
         .email-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 24px rgba(0,0,0,0.12);
+            border-left-width: 6px;
+            box-shadow: 0 8px 30px rgba(138, 180, 248, 0.3);
         }
-        .muted { 
-            color: #6b7280; 
-            font-size: 0.9em;
+        
+        .email-list-item {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
+        
+        .email-list-item:hover {
+            background: rgba(138, 180, 248, 0.15);
+            border-color: #8ab4f8;
+            transform: translateX(5px);
+        }
+        
+        .email-list-item.selected {
+            background: linear-gradient(135deg, rgba(138, 180, 248, 0.25) 0%, rgba(83, 122, 255, 0.15) 100%);
+            border: 2px solid #8ab4f8;
+            box-shadow: 0 0 20px rgba(138, 180, 248, 0.4);
+        }
+        
         .category-badge {
             display: inline-block;
-            padding: 6px 12px;
+            padding: 6px 14px;
             border-radius: 20px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            margin: 4px;
+            margin: 5px;
             font-size: 0.85em;
             font-weight: 500;
-            box-shadow: 0 2px 8px rgba(102,126,234,0.3);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
+        
         .task-item {
-            background: #fff;
-            border-left: 4px solid #667eea;
-            padding: 12px;
-            margin: 8px 0;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            background: rgba(255, 255, 255, 0.08);
+            border-left: 3px solid #4ade80;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(74, 222, 128, 0.2);
         }
+        
+        .chat-container {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 16px;
+            padding: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+            margin: 15px 0;
+        }
+        
         .chat-bubble-user {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 12px 16px;
-            border-radius: 18px;
-            margin: 8px 0;
-            max-width: 80%;
-            float: right;
-            clear: both;
+            padding: 14px 18px;
+            border-radius: 18px 18px 4px 18px;
+            margin: 10px 0;
+            max-width: 75%;
+            margin-left: auto;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.95em;
         }
+        
         .chat-bubble-assistant {
-            background: #f3f4f6;
-            color: #1f2937;
-            padding: 12px 16px;
-            border-radius: 18px;
-            margin: 8px 0;
-            max-width: 80%;
-            float: left;
-            clear: both;
+            background: rgba(255, 255, 255, 0.1);
+            color: #e0e0e0;
+            padding: 14px 18px;
+            border-radius: 18px 18px 18px 4px;
+            margin: 10px 0;
+            max-width: 75%;
+            margin-right: auto;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            font-size: 0.95em;
         }
+        
         .section-header {
-            color: #667eea;
-            font-size: 1.3em;
+            color: #8ab4f8;
+            font-size: 1.4em;
             font-weight: 600;
-            margin: 20px 0 10px 0;
-            padding-bottom: 8px;
-            border-bottom: 2px solid #667eea;
+            margin: 25px 0 15px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(138, 180, 248, 0.5);
+            text-shadow: 0 0 10px rgba(138, 180, 248, 0.5);
         }
+        
         .stButton>button {
-            border-radius: 8px;
+            border-radius: 10px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            border: none;
-            padding: 8px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 10px 24px;
             font-weight: 500;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
         }
+        
         .stButton>button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(102,126,234,0.4);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+            border-color: rgba(255, 255, 255, 0.4);
         }
+        
         .metric-card {
-            background: white;
-            padding: 16px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            background: linear-gradient(135deg, rgba(138, 180, 248, 0.15) 0%, rgba(83, 122, 255, 0.1) 100%);
+            padding: 20px;
+            border-radius: 16px;
             text-align: center;
+            border: 1px solid rgba(138, 180, 248, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .metric-value {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #8ab4f8;
+            text-shadow: 0 0 20px rgba(138, 180, 248, 0.6);
+        }
+        
+        .metric-label {
+            font-size: 0.9em;
+            color: #b8b8b8;
+            margin-top: 5px;
+        }
+        
+        .stTextInput>div>div>input {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: #e0e0e0;
+            padding: 12px;
+        }
+        
+        .stTextInput>div>div>input:focus {
+            border-color: #8ab4f8;
+            box-shadow: 0 0 15px rgba(138, 180, 248, 0.3);
+        }
+        
+        .stTextArea>div>div>textarea {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: #e0e0e0;
+        }
+        
+        .stSelectbox>div>div {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: #e0e0e0;
+        }
+        
+        .success-badge {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-block;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+        }
+        
+        .warning-badge {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-block;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+        }
+        
+        h1, h2, h3 {
+            color: #e0e0e0;
+        }
+        
+        .muted {
+            color: #9ca3af;
+            font-size: 0.9em;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: rgba(138, 180, 248, 0.5);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(138, 180, 248, 0.8);
         }
         </style>
         """,
@@ -123,17 +286,16 @@ def _show_reload_script(delay_ms: int = 800):
 def _friendly_imap_error(exc: Exception):
     msg = str(exc)
     if 'Application-specific password required' in msg or 'APP-PASSWORD' in msg or 'application-specific password' in msg.lower():
-        st.error("🔒 IMAP error: Your provider requires an application-specific (app) password. For Gmail, create an App Password: https://support.google.com/accounts/answer/185833")
+        st.error("🔒 Your provider requires an app-specific password. For Gmail: https://support.google.com/accounts/answer/185833")
     elif 'AUTHENTICATIONFAILED' in msg.upper():
-        st.error('🔒 IMAP error: Authentication failed — check username and password, and ensure IMAP is enabled for the account.')
+        st.error('🔒 Authentication failed — verify credentials and enable IMAP')
     else:
-        st.error(f'⚠️ IMAP error: {msg}')
+        st.error(f'⚠️ IMAP Error: {msg}')
 
 init_db()
 
 # Sidebar Configuration
-st.sidebar.image("https://img.icons8.com/fluency/96/000000/email.png", width=80)
-st.sidebar.title('⚙️ Configuration')
+st.sidebar.markdown("<h2 style='text-align: center; color: #8ab4f8;'>⚙️ Configuration</h2>", unsafe_allow_html=True)
 
 # LLM mode indicator
 try:
@@ -144,109 +306,97 @@ except Exception:
     llm_model = 'unknown'
 
 if llm_key:
-    st.sidebar.success(f'🤖 LLM Mode: Real\n\nModel: {llm_model}')
+    st.sidebar.markdown(f"<div class='success-badge'>🤖 AI Active: {llm_model}</div>", unsafe_allow_html=True)
 else:
-    st.sidebar.warning('🤖 LLM Mode: Mock\n\nNo OpenAI key detected')
+    st.sidebar.markdown("<div class='warning-badge'>🤖 Mock Mode (No API Key)</div>", unsafe_allow_html=True)
 
 st.sidebar.markdown('---')
 
 prompts = get_prompts() or {}
 
-with st.sidebar.expander('📝 Edit AI Prompts', expanded=False):
-    st.markdown("*Customize how the AI processes emails*")
-    cat = st.text_area('Categorization Prompt', value=prompts.get('categorization_prompt', ''), height=120)
-    act = st.text_area('Action Extraction Prompt', value=prompts.get('action_item_prompt', ''), height=120)
-    auto = st.text_area('Auto-reply Prompt', value=prompts.get('auto_reply_prompt', ''), height=120)
-    chat_sys = st.text_area('Chat System Instructions', value=prompts.get('chat_system_instructions', ''), height=100)
-    if st.button('💾 Save All Prompts'):
+with st.sidebar.expander('📝 Customize AI Prompts', expanded=False):
+    st.markdown("*Fine-tune the AI behavior*")
+    cat = st.text_area('Categorization', value=prompts.get('categorization_prompt', ''), height=100)
+    act = st.text_area('Action Extraction', value=prompts.get('action_item_prompt', ''), height=100)
+    auto = st.text_area('Auto-Reply', value=prompts.get('auto_reply_prompt', ''), height=100)
+    chat_sys = st.text_area('Chat Instructions', value=prompts.get('chat_system_instructions', ''), height=80)
+    if st.button('💾 Save Prompts'):
         try:
             save_prompt('categorization_prompt', cat)
             save_prompt('action_item_prompt', act)
             save_prompt('auto_reply_prompt', auto)
             save_prompt('chat_system_instructions', chat_sys)
-            st.success('✅ Prompts saved successfully!')
+            st.success('✅ Prompts saved!')
             prompts = get_prompts() or {}
         except Exception as e:
-            st.error(f'❌ Error saving prompts: {e}')
+            st.error(f'❌ Error: {e}')
 
-# Main Title
-st.markdown("<h1 style='text-align: center; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);'>📧 Email Productivity Agent</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; color: white; font-size: 1.1em;'>AI-Powered Email Management & Automation</p>", unsafe_allow_html=True)
+# Main Header
+st.markdown("""
+<div class='main-header'>
+    <h1 style='text-align: center; color: #8ab4f8; font-size: 3em; margin: 0; text-shadow: 0 0 20px rgba(138, 180, 248, 0.5);'>
+        📧 Email Productivity Agent
+    </h1>
+    <p style='text-align: center; color: #b8b8b8; font-size: 1.2em; margin-top: 10px;'>
+        AI-Powered Email Intelligence Platform
+    </p>
+</div>
+""", unsafe_allow_html=True)
 
-# Welcome Section
-with st.expander('👋 Welcome — Quick Start Guide', expanded=False):
-    col_a, col_b = st.columns([1, 2])
-    with col_a:
-        st.image("https://img.icons8.com/fluency/96/000000/artificial-intelligence.png", width=80)
-    with col_b:
-        st.markdown(
-            """
-            **Email Productivity Agent** supercharges your inbox with AI:
-            
-            ✅ **Smart Categorization** - Automatically classify emails  
-            ✅ **Action Extraction** - Find tasks, deadlines, and assignees  
-            ✅ **Draft Generation** - Create replies in seconds  
-            ✅ **Email Chat** - Ask questions about any email  
-            """
-        )
+# Quick Start Guide
+with st.expander('👋 Quick Start Guide', expanded=False):
+    col_guide1, col_guide2 = st.columns([1, 3])
+    with col_guide1:
+        st.markdown("### 🚀")
+    with col_guide2:
+        st.markdown("""
+        **Get Started in 3 Steps:**
+        
+        1. **Load Data** → Click 'Load Mock Data' or connect via IMAP
+        2. **Select Email** → Click any email from the inbox
+        3. **Analyze** → Use AI to categorize, extract tasks, or chat
+        """)
     
-    st.markdown("### 🚀 Quick Actions")
-    c1, c2, c3 = st.columns(3)
-    if c1.button('📥 Load Demo Inbox', use_container_width=True):
+    col_a, col_b, col_c = st.columns(3)
+    if col_a.button('📥 Load Demo', use_container_width=True):
         load_mock_emails(str(MOCK_PATH))
         try:
             st.experimental_rerun()
         except Exception:
-            st.success('✅ Mock inbox loaded! Refresh to see messages.')
+            st.success('✅ Demo loaded!')
     
-    if c2.button('🧪 Test AI on Sample Email', use_container_width=True):
+    if col_b.button('🧪 Test AI', use_container_width=True):
         try:
             emails_list = get_emails()
             if not emails_list:
-                st.info('💡 Load the demo inbox first!')
+                st.info('💡 Load demo first!')
             else:
                 sample = emails_list[0]
                 e = get_email(sample['id'])
                 prompts = get_prompts()
-                cat_prompt = prompts.get('categorization_prompt','')
-                act_prompt = prompts.get('action_item_prompt','')
-                auto_prompt = prompts.get('auto_reply_prompt','')
                 
-                with st.spinner('🤖 AI is analyzing...'):
-                    cat_out = llm.categorize(e.get('body',''), cat_prompt)
-                    act_out = llm.extract_actions(e.get('body',''), act_prompt)
-                    draft_out = llm.generate_draft(e.get('body',''), auto_prompt, tone='friendly')
+                with st.spinner('🤖 AI Processing...'):
+                    cat_out = llm.categorize(e.get('body',''), prompts.get('categorization_prompt',''))
+                    act_out = llm.extract_actions(e.get('body',''), prompts.get('action_item_prompt',''))
                 
-                st.markdown(f"**📧 Sample Email:** {e.get('subject')}")
-                cols = st.columns(3)
-                with cols[0]:
+                st.markdown(f"**📧 Test Email:** {e.get('subject')}")
+                col1, col2 = st.columns(2)
+                with col1:
                     st.markdown('**🏷️ Categories**')
-                    try:
-                        st.json(cat_out)
-                    except Exception:
-                        st.write(cat_out)
-                with cols[1]:
-                    st.markdown('**✅ Action Items**')
-                    try:
-                        st.json(act_out)
-                    except Exception:
-                        st.write(act_out)
-                with cols[2]:
-                    st.markdown('**✍️ Draft Reply**')
-                    try:
-                        st.json(draft_out)
-                    except Exception:
-                        st.write(draft_out)
+                    st.json(cat_out)
+                with col2:
+                    st.markdown('**✅ Actions**')
+                    st.json(act_out)
         except Exception as exc:
-            st.error(f'⚠️ Error: {exc}')
+            st.error(f'⚠️ {exc}')
     
-    if c3.button('📚 View Documentation', use_container_width=True):
-        st.info('💡 Edit prompts in the sidebar to customize AI behavior. Use the chat feature to interact with emails naturally!')
+    if col_c.button('📚 Help', use_container_width=True):
+        st.info('💡 Edit prompts in sidebar to customize AI. Use chat to interact naturally with emails!')
 
 st.markdown("---")
 
 # Main Layout
-col1, col2 = st.columns([1, 2])
+col1, col2 = st.columns([1, 2.5])
 
 with col1:
     st.markdown("<div class='section-header'>📬 Inbox</div>", unsafe_allow_html=True)
@@ -254,64 +404,51 @@ with col1:
     # Quick Actions
     col_btn1, col_btn2 = st.columns(2)
     with col_btn1:
-        if st.button('📥 Load Mock Data', use_container_width=True):
+        if st.button('📥 Load Mock', use_container_width=True):
             load_mock_emails(str(MOCK_PATH))
             try:
                 st.experimental_rerun()
             except Exception:
-                st.success('✅ Mock inbox loaded!')
+                st.success('✅ Loaded!')
     
     with col_btn2:
-        with st.popover("🌐 IMAP Sync"):
-            st.markdown("### Connect Your Email")
-            provider = st.selectbox('Provider', ['Custom', 'Gmail', 'Outlook/Office365', 'Yahoo', 'iCloud', 'AOL', 'Fastmail', 'Zoho', 'ProtonMail'])
+        with st.popover("🌐 IMAP"):
+            st.markdown("### Connect Email")
+            provider = st.selectbox('Provider', ['Gmail', 'Outlook', 'Yahoo', 'iCloud', 'Custom'])
             provider_hosts = {
                 'Gmail': 'imap.gmail.com',
-                'Outlook/Office365': 'outlook.office365.com',
+                'Outlook': 'outlook.office365.com',
                 'Yahoo': 'imap.mail.yahoo.com',
-                'iCloud': 'imap.mail.me.com',
-                'AOL': 'imap.aol.com',
-                'Fastmail': 'imap.fastmail.com',
-                'Zoho': 'imap.zoho.com',
-                'ProtonMail': '127.0.0.1'
+                'iCloud': 'imap.mail.me.com'
             }
-            default_server = provider_hosts.get(provider, '') if provider != 'Custom' else ''
-            imap_server = st.text_input('IMAP Server', value=default_server)
-            imap_user = st.text_input('Email Address')
+            imap_server = st.text_input('Server', value=provider_hosts.get(provider, ''))
+            imap_user = st.text_input('Email')
             imap_pass = st.text_input('Password', type='password')
             imap_limit = st.number_input('Max Messages', value=50, min_value=1, max_value=500)
             
-            notes = {
-                'Gmail': '💡 Enable IMAP in Settings and use an App Password',
-                'Yahoo': '💡 Generate an app password if 2FA is enabled',
-                'iCloud': '💡 Generate an app-specific password',
-            }
-            if provider in notes:
-                st.info(notes[provider])
+            if provider == 'Gmail':
+                st.info('💡 Use App Password with 2FA')
             
-            col_test, col_fetch = st.columns(2)
-            if col_test.button('🔍 Test Login'):
+            col_t1, col_t2 = st.columns(2)
+            if col_t1.button('🔍 Test'):
                 import imaplib
-                if not (imap_server and imap_user and imap_pass):
-                    st.error('⚠️ Fill all fields')
-                else:
+                if imap_server and imap_user and imap_pass:
                     try:
                         with st.spinner('Testing...'):
                             M = imaplib.IMAP4_SSL(imap_server)
                             M.login(imap_user, imap_pass)
                             M.logout()
-                        st.success('✅ Login successful!')
+                        st.success('✅ Success!')
                     except Exception as e:
                         _friendly_imap_error(e)
-            
-            if col_fetch.button('📥 Fetch Emails'):
-                if not (imap_server and imap_user and imap_pass):
-                    st.error('⚠️ Fill all fields')
                 else:
+                    st.error('⚠️ Fill all fields')
+            
+            if col_t2.button('📥 Fetch'):
+                if imap_server and imap_user and imap_pass:
                     try:
                         with st.spinner('Fetching...'):
                             msgs = fetch_imap_emails(imap_server, imap_user, imap_pass, limit=imap_limit)
-                            from db import init_db
                             import sqlite3
                             init_db()
                             conn = sqlite3.connect(os.path.join(os.path.dirname(__file__), 'data', 'email_agent.db'))
@@ -324,29 +461,46 @@ with col1:
                                           (m['id'], m['sender'], m['subject'], m['timestamp'], m['body']))
                             conn.commit()
                             conn.close()
-                        st.success(f'✅ Fetched {len(msgs)} messages!')
+                        st.success(f'✅ {len(msgs)} fetched!')
                         try:
                             st.experimental_rerun()
-                        except Exception:
+                        except:
                             _show_reload_script(800)
                     except Exception as e:
                         _friendly_imap_error(e)
+                else:
+                    st.error('⚠️ Fill all fields')
     
     # Email List
     emails = get_emails()
-    st.markdown(f"**📨 {len(emails)} Messages**")
+    st.markdown(f"<p style='color: #8ab4f8; font-weight: 600;'>📨 {len(emails)} Messages</p>", unsafe_allow_html=True)
+    
+    if 'selected_email' not in st.session_state:
+        st.session_state['selected_email'] = None
     
     if emails:
         for e in emails:
-            with st.container():
-                preview = e.get('subject', '(no subject)')[:50]
-                sender = e.get('sender', 'Unknown')[:30]
-                if st.button(f"📧 {preview}", key=f"select-{e['id']}", use_container_width=True):
-                    st.session_state['selected_email'] = e['id']
-                st.markdown(f"<p class='muted'>From: {sender}</p>", unsafe_allow_html=True)
+            is_selected = st.session_state.get('selected_email') == e['id']
+            preview = e.get('subject', '(no subject)')[:45]
+            sender = e.get('sender', 'Unknown')[:25]
+            
+            if st.button(f"{'✉️' if is_selected else '📧'} {preview}", 
+                        key=f"select-{e['id']}", 
+                        use_container_width=True,
+                        type='primary' if is_selected else 'secondary'):
+                st.session_state['selected_email'] = e['id']
+                try:
+                    st.experimental_rerun()
+                except:
+                    st.rerun()
+            
+            st.markdown(f"<p class='muted'>From: {sender}</p>", unsafe_allow_html=True)
+            if is_selected:
+                st.markdown("<hr style='border: 2px solid #8ab4f8; margin: 8px 0;'>", unsafe_allow_html=True)
+            else:
                 st.markdown("---")
     else:
-        st.info("📭 No emails loaded. Click 'Load Mock Data' to get started!")
+        st.info("📭 No emails. Load mock data to start!")
     
     selected = st.session_state.get('selected_email')
 
@@ -354,17 +508,18 @@ with col2:
     if selected:
         email = get_email(selected)
         
+        st.markdown("<div class='glass-card'>", unsafe_allow_html=True)
+        
         # Email Header
-        st.markdown(f"<div class='main-container'>", unsafe_allow_html=True)
-        st.markdown(f"<h2 style='color: #667eea;'>📧 {email.get('subject','(no subject)')}</h2>", unsafe_allow_html=True)
+        st.markdown(f"<h2 style='color: #8ab4f8; margin-bottom: 15px;'>📧 {email.get('subject','(no subject)')}</h2>", unsafe_allow_html=True)
         
-        col_sender, col_time = st.columns(2)
-        with col_sender:
-            st.markdown(f"**👤 From:** {email.get('sender')}")
-        with col_time:
-            st.markdown(f"**🕐 Date:** {email.get('timestamp')}")
+        col_meta1, col_meta2 = st.columns(2)
+        with col_meta1:
+            st.markdown(f"<p><strong>👤 From:</strong> {email.get('sender')}</p>", unsafe_allow_html=True)
+        with col_meta2:
+            st.markdown(f"<p><strong>🕐 Date:</strong> {email.get('timestamp')}</p>", unsafe_allow_html=True)
         
-        # Categories and Tasks Display
+        # Categories and Tasks
         proc = get_processed(selected)
         if proc:
             cats = proc.get('categories')
@@ -383,74 +538,73 @@ with col2:
                     st.markdown(f"<span class='category-badge'>{c}</span>", unsafe_allow_html=True)
             
             if tasks:
-                st.markdown("**✅ Action Items:**")
+                st.markdown("**✅ Action Items:**", unsafe_allow_html=True)
                 for t in tasks:
-                    task_text = t.get('task') or t.get('raw', 'Unknown task')
+                    task_text = t.get('task') or t.get('raw', 'Task')
                     st.markdown(f"<div class='task-item'>📌 {task_text}</div>", unsafe_allow_html=True)
         
         # Email Body
-        st.markdown("**📄 Email Content:**")
-        st.markdown(f"<div class='email-card'><pre style='white-space: pre-wrap; font-family: system-ui;'>{email.get('body')}</pre></div>", unsafe_allow_html=True)
+        st.markdown("**📄 Content:**")
+        st.markdown(f"<div class='email-card'><pre style='white-space: pre-wrap; color: #e0e0e0;'>{email.get('body')}</pre></div>", unsafe_allow_html=True)
         
-        # Processing Actions
-        st.markdown("<div class='section-header'>🤖 AI Processing</div>", unsafe_allow_html=True)
+        st.markdown("</div>", unsafe_allow_html=True)
         
-        col_process1, col_process2, col_process3 = st.columns(3)
+        # AI Processing Section
+        st.markdown("<div class='section-header'>🤖 AI Actions</div>", unsafe_allow_html=True)
         
-        if col_process1.button('🔍 Analyze Email', use_container_width=True):
-            db_prompts = get_prompts()
-            cat_prompt = db_prompts.get('categorization_prompt') or ''
-            act_prompt = db_prompts.get('action_item_prompt') or ''
-            
-            with st.spinner('🤖 AI is analyzing...'):
-                categories = llm.categorize(email.get('body',''), cat_prompt)
-                tasks = llm.extract_actions(email.get('body',''), act_prompt)
-                save_processed(selected, categories, tasks)
-            st.success('✅ Analysis complete!')
-            try:
-                st.experimental_rerun()
-            except Exception:
-                st.info('Please refresh to see results.')
+        col_act1, col_act2, col_act3 = st.columns(3)
         
-        # Tone selector always visible
-        tone = st.selectbox('Reply Tone', ['friendly','professional','concise','formal'], key='main_tone')
+        with col_act1:
+            if st.button('🔍 Analyze', use_container_width=True):
+                db_prompts = get_prompts()
+                with st.spinner('🤖 Analyzing...'):
+                    categories = llm.categorize(email.get('body',''), db_prompts.get('categorization_prompt', ''))
+                    tasks = llm.extract_actions(email.get('body',''), db_prompts.get('action_item_prompt', ''))
+                    save_processed(selected, categories, tasks)
+                st.success('✅ Done!')
+                try:
+                    st.experimental_rerun()
+                except:
+                    st.rerun()
         
-        if col_process2.button('✍️ Generate Draft', use_container_width=True):
-            db_prompts = get_prompts()
-            auto_prompt = db_prompts.get('auto_reply_prompt') or ''
-            
-            with st.spinner('✍️ Generating draft...'):
-                draft = llm.generate_draft(email.get('body',''), auto_prompt, tone)
-                subj = draft.get('subject') or f"Re: {email.get('subject','')}"
-                body = draft.get('body') or draft.get('text') or str(draft)
-                save_draft(selected, subj, body, {'generated_by': 'llm', 'tone': tone})
-            st.success('✅ Draft saved!')
-            try:
-                st.experimental_rerun()
-            except Exception:
-                st.info('Draft saved. Refresh to view.')
+        with col_act2:
+            tone = st.selectbox('Tone', ['friendly','professional','concise','formal'], key='tone_select')
         
-        if col_process3.button('📝 View Drafts', use_container_width=True):
+        with col_act3:
+            if st.button('✍️ Draft', use_container_width=True):
+                db_prompts = get_prompts()
+                with st.spinner('✍️ Drafting...'):
+                    draft = llm.generate_draft(email.get('body',''), db_prompts.get('auto_reply_prompt', ''), tone)
+                    subj = draft.get('subject') or f"Re: {email.get('subject','')}"
+                    body = draft.get('body') or draft.get('text') or str(draft)
+                    save_draft(selected, subj, body, {'generated_by': 'llm', 'tone': tone})
+                st.success('✅ Draft saved!')
+                try:
+                    st.experimental_rerun()
+                except:
+                    st.rerun()
+        
+        # View Drafts
+        if st.button('📝 View Drafts', use_container_width=True):
             drafts = get_drafts(selected)
             if drafts:
                 for d in drafts:
-                    st.markdown(f"**Draft #{d['id']}** - {d['subject']}")
-                    st.text_area(f"Draft {d['id']}", value=d['body'], height=150, key=f"draft_{d['id']}")
+                    st.markdown(f"<div class='glass-card'><strong>Draft #{d['id']}</strong> — {d['subject']}</div>", unsafe_allow_html=True)
+                    st.text_area(f"Draft {d['id']}", value=d['body'], height=120, key=f"draft_{d['id']}")
             else:
-                st.info("No drafts available. Generate one first!")
+                st.info("No drafts yet!")
         
         # Chat Assistant
-        st.markdown("<div class='section-header'>💬 Chat Assistant</div>", unsafe_allow_html=True)
+        st.markdown("<div class='section-header'>💬 AI Chat</div>", unsafe_allow_html=True)
         
         if 'chat_history' not in st.session_state:
             st.session_state.chat_history = []
         
-        # Chat input and send button
-        col_input, col_send = st.columns([4, 1])
+        col_input, col_send = st.columns([5, 1])
         with col_input:
-            user_q = st.text_input('💭 Ask about this email...', placeholder='e.g., "Summarize this", "What are the action items?"', key='chat_input', label_visibility='collapsed')
+            user_q = st.text_input('Ask anything...', placeholder='e.g., Summarize this email', key='chat_input', label_visibility='collapsed')
         with col_send:
-            send_clicked = st.button('💬 Send', use_container_width=True, key='send_chat')
+            send_clicked = st.button('💬', use_container_width=True, key='send_chat')
         
         if send_clicked and user_q and user_q.strip():
             db_prompts = get_prompts()
@@ -462,80 +616,106 @@ with col2:
             except:
                 st.rerun()
         
-        # Display chat history
+        # Chat History
         if st.session_state.chat_history:
-            st.markdown("**💬 Conversation:**")
-            chat_container = st.container()
-            with chat_container:
-                for idx, m in enumerate(st.session_state.chat_history):
-                    st.markdown(f"<div class='chat-bubble-user'>👤 You: {m['user']}</div>", unsafe_allow_html=True)
-                    st.markdown(f"<div class='chat-bubble-assistant'>🤖 Assistant: {m['assistant']}</div>", unsafe_allow_html=True)
-                    st.markdown("<div style='clear: both; margin-bottom: 10px;'></div>", unsafe_allow_html=True)
+            st.markdown("<div class='chat-container'>", unsafe_allow_html=True)
+            for m in st.session_state.chat_history:
+                st.markdown(f"<div class='chat-bubble-user'>{m['user']}</div>", unsafe_allow_html=True)
+                st.markdown(f"<div class='chat-bubble-assistant'>{m['assistant']}</div>", unsafe_allow_html=True)
+            st.markdown("</div>", unsafe_allow_html=True)
             
-            if st.button('🗑️ Clear Chat History', key='clear_chat'):
+            if st.button('🗑️ Clear Chat'):
                 st.session_state.chat_history = []
                 try:
                     st.experimental_rerun()
                 except:
                     st.rerun()
         else:
-            st.info("💡 Ask me anything about this email! Try 'Summarize this' or 'What tasks are mentioned?'")
+            st.info("💡 Start chatting! Ask about tasks, summaries, or anything else.")
         
         # Prompt Tester
-        st.markdown("<div class='section-header'>🧪 Prompt Testing Lab</div>", unsafe_allow_html=True)
+        st.markdown("<div class='section-header'>🧪 Prompt Lab</div>", unsafe_allow_html=True)
         
-        col_test1, col_test2 = st.columns([2, 1])
-        with col_test1:
-            prompt_type = st.selectbox('Select Prompt to Test', ['categorization_prompt','action_item_prompt','auto_reply_prompt','chat_system_instructions'], key='prompt_type_select')
-        with col_test2:
-            test_tone = st.selectbox('Tone (for drafts)', ['friendly','professional','concise','formal'], key='test_tone_select')
+        col_p1, col_p2 = st.columns([2, 1])
+        with col_p1:
+            prompt_type = st.selectbox('Test Prompt', ['categorization_prompt','action_item_prompt','auto_reply_prompt','chat_system_instructions'])
+        with col_p2:
+            test_tone = st.selectbox('Tone', ['friendly','professional','concise','formal'], key='test_tone')
         
-        tester_prompt = get_prompts().get(prompt_type, '')
-        st.text_area('Current Prompt (read-only)', value=str(tester_prompt)[:500] + '...' if len(str(tester_prompt)) > 500 else str(tester_prompt), height=80, disabled=True, key='prompt_display')
+        tester_input = st.text_area('Input', value=email.get('body','')[:300], height=100)
         
-        tester_input = st.text_area('Test Input (email body)', value=email.get('body','')[:500], height=120, key='test_input_area')
-        
-        if st.button('🚀 Run Prompt Test', use_container_width=True, key='run_test_btn'):
-            with st.spinner('🧪 Testing prompt...'):
+        if st.button('🚀 Run Test', use_container_width=True):
+            with st.spinner('🧪 Testing...'):
                 try:
+                    tester_prompt = get_prompts().get(prompt_type, '')
+                    
                     if prompt_type == 'categorization_prompt':
                         out = llm.categorize(tester_input, tester_prompt)
                         st.markdown("**📊 Categorization Results:**")
                     elif prompt_type == 'action_item_prompt':
                         out = llm.extract_actions(tester_input, tester_prompt)
-                        st.markdown("**✅ Extracted Action Items:**")
+                        st.markdown("**✅ Extracted Actions:**")
                     elif prompt_type == 'auto_reply_prompt':
                         out = llm.generate_draft(tester_input, tester_prompt, test_tone)
                         st.markdown("**✍️ Generated Draft:**")
                     else:
-                        out = llm.chat_with_email(tester_input, get_prompts(), 'Summarize this email')
+                        out = llm.chat_with_email(tester_input, get_prompts(), 'Summarize')
                         st.markdown("**💬 Chat Response:**")
                     
+                    st.markdown("<div class='glass-card'>", unsafe_allow_html=True)
                     try:
                         st.json(out)
-                    except Exception:
+                    except:
                         st.code(str(out), language='text')
-                    st.success('✅ Test completed!')
+                    st.markdown("</div>", unsafe_allow_html=True)
+                    st.success('✅ Test complete!')
                 except Exception as e:
                     st.error(f'❌ Test failed: {str(e)}')
-        
-        st.markdown("</div>", unsafe_allow_html=True)
+    
     else:
-        # No email selected state
-        st.markdown("<div class='main-container'>", unsafe_allow_html=True)
-        st.markdown("<h2 style='text-align: center; color: #667eea;'>📬 Select an email to get started</h2>", unsafe_allow_html=True)
-        st.markdown("<p style='text-align: center; color: #6b7280;'>Choose an email from the inbox on the left to view details and interact with AI features</p>", unsafe_allow_html=True)
+        # No email selected
+        st.markdown("<div class='glass-card' style='padding: 40px;'>", unsafe_allow_html=True)
+        st.markdown("<h2 style='text-align: center; color: #8ab4f8;'>📬 Select an Email</h2>", unsafe_allow_html=True)
+        st.markdown("<p style='text-align: center; color: #9ca3af;'>Choose an email from the inbox to view details and use AI features</p>", unsafe_allow_html=True)
         
-        # Show some stats
+        # Stats Dashboard
+        st.markdown("<div style='margin-top: 30px;'>", unsafe_allow_html=True)
         emails = get_emails()
-        col_stat1, col_stat2, col_stat3 = st.columns(3)
-        with col_stat1:
-            st.markdown(f"<div class='metric-card'><h3 style='color: #667eea;'>{len(emails)}</h3><p>Total Emails</p></div>", unsafe_allow_html=True)
-        with col_stat2:
+        col_s1, col_s2, col_s3 = st.columns(3)
+        
+        with col_s1:
+            st.markdown(f"""
+            <div class='metric-card'>
+                <div class='metric-value'>{len(emails)}</div>
+                <div class='metric-label'>Total Emails</div>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        with col_s2:
             processed_count = sum(1 for e in emails if get_processed(e['id']))
-            st.markdown(f"<div class='metric-card'><h3 style='color: #667eea;'>{processed_count}</h3><p>Processed</p></div>", unsafe_allow_html=True)
-        with col_stat3:
+            st.markdown(f"""
+            <div class='metric-card'>
+                <div class='metric-value'>{processed_count}</div>
+                <div class='metric-label'>Processed</div>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        with col_s3:
             draft_count = sum(len(get_drafts(e['id']) or []) for e in emails)
-            st.markdown(f"<div class='metric-card'><h3 style='color: #667eea;'>{draft_count}</h3><p>Drafts</p></div>", unsafe_allow_html=True)
+            st.markdown(f"""
+            <div class='metric-card'>
+                <div class='metric-value'>{draft_count}</div>
+                <div class='metric-label'>Drafts Generated</div>
+            </div>
+            """, unsafe_allow_html=True)
         
         st.markdown("</div>", unsafe_allow_html=True)
+        st.markdown("</div>", unsafe_allow_html=True)
+
+# Footer
+st.markdown("---")
+st.markdown("""
+<div style='text-align: center; color: #9ca3af; padding: 20px;'>
+    <p>🤖 Powered by AI • Built with Streamlit</p>
+</div>
+""", unsafe_allow_html=True)
