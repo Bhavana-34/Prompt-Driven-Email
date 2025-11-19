@@ -1,0 +1,107 @@
+[
+  {
+    "id": 1,
+    "sender": "alice@acme.com",
+    "subject": "Project Orion: Design review meeting",
+    "timestamp": "2025-11-01T09:12:00",
+    "body": "Hi team,\n\nLet's have a design review for Project Orion on Wednesday at 2pm. Please bring UI mocks and the architecture diagram. Can someone own the meeting notes?\n\nThanks,\nAlice"
+  },
+  {
+    "id": 2,
+    "sender": "notifications@service.com",
+    "subject": "Your weekly product digest",
+    "timestamp": "2025-11-02T08:00:00",
+    "body": "Here are the top stories this week... (newsletter content)"
+  },
+  {
+    "id": 3,
+    "sender": "hr@company.com",
+    "subject": "Benefits enrollment reminder",
+    "timestamp": "2025-10-31T14:45:00",
+    "body": "Open enrollment closes next Friday. Please review your options and complete the enrollment form."
+  },
+  {
+    "id": 4,
+    "sender": "unknown@spammy.io",
+    "subject": "You won a prize!!!",
+    "timestamp": "2025-10-28T03:12:00",
+    "body": "Click here to claim your reward: http://spam.example/claim"
+  },
+  {
+    "id": 5,
+    "sender": "bob@partner.org",
+    "subject": "Request: updated sales numbers",
+    "timestamp": "2025-11-03T11:22:00",
+    "body": "Hey — could you send the updated Q3 sales spreadsheet? I need it by Friday morning so I can include it in the board packet. Thanks, Bob"
+  },
+  {
+    "id": 6,
+    "sender": "pm@acme.com",
+    "subject": "Sprint retro notes and actions",
+    "timestamp": "2025-11-04T16:00:00",
+    "body": "Thanks for attending. Action items: 1) Improve CI pipeline (assigned to Sam), 2) Update onboarding docs (no owner yet). Please confirm owners."
+  },
+  {
+    "id": 7,
+    "sender": "events@local.org",
+    "subject": "Upcoming community meetup — RSVP",
+    "timestamp": "2025-10-27T07:30:00",
+    "body": "Join our community meetup this month. RSVP to reserve your seat."
+  },
+  {
+    "id": 8,
+    "sender": "finance@company.com",
+    "subject": "Invoice 2025-998 attached",
+    "timestamp": "2025-11-05T10:15:00",
+    "body": "Please review and approve Invoice 2025-998 for services rendered in October. Due date: 2025-11-20."
+  },
+  {
+    "id": 9,
+    "sender": "ceo@company.com",
+    "subject": "Quarterly strategy update",
+    "timestamp": "2025-11-06T09:00:00",
+    "body": "Attached is the Q4 strategy doc. Please read before Monday's all-hands; we'll discuss goals and metrics."
+  },
+  {
+    "id": 10,
+    "sender": "recruiter@jobs.com",
+    "subject": "Interview invite — Product Designer",
+    "timestamp": "2025-11-02T13:00:00",
+    "body": "We'd like to invite you to interview next Tuesday. Please let us know your availability."
+  },
+  {
+    "id": 11,
+    "sender": "newsletter@shop.com",
+    "subject": "Black Friday preview — 40% off",
+    "timestamp": "2025-11-07T05:00:00",
+    "body": "Exclusive early access to deals for subscribers."
+  },
+  {
+    "id": 12,
+    "sender": "team@projectx.com",
+    "subject": "Deployment scheduled tonight",
+    "timestamp": "2025-11-08T20:00:00",
+    "body": "We will deploy release v1.4.2 at 23:00 UTC. Rollback plan attached. Please standby if you're on-call."
+  },
+  {
+    "id": 13,
+    "sender": "client@clientco.com",
+    "subject": "Please revise the proposal",
+    "timestamp": "2025-11-09T15:30:00",
+    "body": "Thanks for the draft. Could you update section 2 with a clearer timeline and add pricing tiers? We need the revision by Thursday."
+  },
+  {
+    "id": 14,
+    "sender": "social@network.com",
+    "subject": "You have new followers",
+    "timestamp": "2025-11-10T06:45:00",
+    "body": "People started following your profile. Check your updates."
+  },
+  {
+    "id": 15,
+    "sender": "ops@infra.io",
+    "subject": "Alert: high error rate in payments service",
+    "timestamp": "2025-11-11T02:05:00",
+    "body": "We've detected a spike in 500s on payments. Please investigate and roll back the last change if needed."
+  }
+]
