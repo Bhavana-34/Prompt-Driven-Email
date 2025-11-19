@@ -63,6 +63,43 @@ with st.sidebar.expander('Edit Prompts'):
 
 st.title('Email Productivity Agent')
 
+# Onboarding / Feature tour
+with st.expander('Welcome — Quick Feature Tour', expanded=True):
+    st.markdown(
+        """
+        **Email Productivity Agent** is an AI assistant for your inbox. It can:
+
+        - **Categorize** emails (meeting, action required, newsletter, spam, etc.)
+        - **Extract action items** (tasks, assignees, due dates)
+        - **Draft replies** using your configurable prompt templates
+        - **Chat with specific emails** to summarize, list tasks, or draft responses
+
+        Try the quick actions below to explore the app interactively.
+        """
+    )
+    c1, c2, c3 = st.columns(3)
+    if c1.button('1. Load mock inbox (quick demo)'):
+        load_mock_emails(str(MOCK_PATH))
+        try:
+            st.experimental_rerun()
+        except Exception:
+            st.success('Mock inbox loaded. Please refresh the page to see the messages.')
+    if c2.button('2. Show prompts (how the AI thinks)'):
+        st.sidebar.info('Open "Edit Prompts" to view and change how the assistant classifies, extracts tasks, and drafts replies.')
+    if c3.button('3. Run a sample prompt test'):
+        # run a small local mock test using the first email
+        try:
+            import json
+            sample = get_emails()[0]
+            e = get_email(sample['id'])
+            prompts = get_prompts()
+            out = llm.categorize(e.get('body',''), prompts.get('categorization_prompt',''))
+            st.json({'sample_subject': e.get('subject'), 'categorization_result': out})
+        except Exception:
+            st.info('No emails loaded yet — click "Load mock inbox" first.')
+
+    st.markdown('**Tips:** Edit prompts in the sidebar to change the assistant behavior. Use the Prompt tester (per-email) to run quick experiments.')
+
 col1, col2 = st.columns([2,6])
 
 with col1:
