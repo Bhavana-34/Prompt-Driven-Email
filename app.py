@@ -87,16 +87,46 @@ with st.expander('Welcome — Quick Feature Tour', expanded=True):
     if c2.button('2. Show prompts (how the AI thinks)'):
         st.sidebar.info('Open "Edit Prompts" to view and change how the assistant classifies, extracts tasks, and drafts replies.')
     if c3.button('3. Run a sample prompt test'):
-        # run a small local mock test using the first email
+        # run categorize, extract-actions, and draft-generation on the first loaded email
         try:
             import json
-            sample = get_emails()[0]
-            e = get_email(sample['id'])
-            prompts = get_prompts()
-            out = llm.categorize(e.get('body',''), prompts.get('categorization_prompt',''))
-            st.json({'sample_subject': e.get('subject'), 'categorization_result': out})
-        except Exception:
-            st.info('No emails loaded yet — click "Load mock inbox" first.')
+            emails_list = get_emails()
+            if not emails_list:
+                st.info('No emails loaded yet — click "Load mock inbox" first.')
+            else:
+                sample = emails_list[0]
+                e = get_email(sample['id'])
+                prompts = get_prompts()
+                cat_prompt = prompts.get('categorization_prompt','')
+                act_prompt = prompts.get('action_item_prompt','')
+                auto_prompt = prompts.get('auto_reply_prompt','')
+                st.info('Running categorize, action extraction, and draft generation...')
+                cat_out = llm.categorize(e.get('body',''), cat_prompt)
+                act_out = llm.extract_actions(e.get('body',''), act_prompt)
+                draft_out = llm.generate_draft(e.get('body',''), auto_prompt, tone='friendly')
+                st.markdown('**Sample email:**')
+                st.write(e.get('subject'))
+                cols = st.columns(3)
+                with cols[0]:
+                    st.markdown('**Categorization**')
+                    try:
+                        st.json(cat_out)
+                    except Exception:
+                        st.write(cat_out)
+                with cols[1]:
+                    st.markdown('**Action items**')
+                    try:
+                        st.json(act_out)
+                    except Exception:
+                        st.write(act_out)
+                with cols[2]:
+                    st.markdown('**Generated draft (sample)**')
+                    try:
+                        st.json(draft_out)
+                    except Exception:
+                        st.write(draft_out)
+        except Exception as exc:
+            st.info(f'Error running sample test: {exc}')
 
     st.markdown('**Tips:** Edit prompts in the sidebar to change the assistant behavior. Use the Prompt tester (per-email) to run quick experiments.')
 
@@ -170,6 +200,20 @@ with col1:
                         st.info('Messages fetched. Please refresh to see them in the inbox.')
                 except Exception as e:
                     st.error(f'IMAP error: {e}')
+        # Add a small credential tester that only attempts to login and reports success/failure
+        if st.button('Test IMAP credentials'):
+            import imaplib
+            if not (imap_server and imap_user and imap_pass):
+                st.error('Please provide IMAP server, username, and password to test.')
+            else:
+                st.info('Testing IMAP login...')
+                try:
+                    M = imaplib.IMAP4_SSL(imap_server)
+                    M.login(imap_user, imap_pass)
+                    M.logout()
+                    st.success('IMAP login successful — credentials look valid.')
+                except Exception as e:
+                    st.error(f'IMAP login failed: {e}')
     emails = get_emails()
     # show a nicer list with previews and small badges
     st.markdown('**Messages**')
