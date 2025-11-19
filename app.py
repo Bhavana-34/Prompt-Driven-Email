@@ -29,6 +29,18 @@ local_css()
 init_db()
 
 st.sidebar.title('Prompts')
+# LLM mode indicator: show whether OPENAI key is available (real) or not (mock)
+try:
+    llm_key = getattr(llm, 'OPENAI_KEY', None)
+    llm_model = getattr(llm, 'OPENAI_MODEL', 'unknown')
+except Exception:
+    llm_key = None
+    llm_model = 'unknown'
+if llm_key:
+    st.sidebar.success(f'LLM Mode: Real — model={llm_model}')
+else:
+    st.sidebar.warning('LLM Mode: Mock — no OpenAI key detected')
+
 prompts = get_prompts() or {}
 
 with st.sidebar.expander('Edit Prompts'):
