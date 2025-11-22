@@ -250,13 +250,13 @@ def local_css():
         }
         
         .section-header {
-            color: #5a67d8;
+            color: #ffffff;
             font-size: 1.6em;
             font-weight: 700;
             margin: 30px 0 20px 0;
             padding-bottom: 12px;
-            border-bottom: 3px solid rgba(102, 126, 234, 0.5);
-            text-shadow: 0 2px 5px rgba(102, 126, 234, 0.3);
+            border-bottom: 3px solid rgba(255, 255, 255, 0.6);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
         
         .stButton>button {
