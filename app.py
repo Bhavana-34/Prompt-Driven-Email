@@ -28,98 +28,77 @@ def local_css():
             color: #ffffff;
         }
         
-        /* Fix all input text colors to white - CRITICAL */
-        input[type="text"],
-        input[type="password"],
-        input[type="number"],
-        input[type="email"],
-        textarea {
-            color: #ffffff !important;
-            background: rgba(255, 255, 255, 0.1) !important;
-            border: 1px solid rgba(255, 255, 255, 0.3) !important;
-            border-radius: 12px !important;
-            padding: 12px !important;
-            -webkit-text-fill-color: #ffffff !important;
-        }
-        
-        /* Streamlit specific input overrides */
-        .stTextInput > div > div > input {
-            color: #ffffff !important;
-            background: rgba(255, 255, 255, 0.1) !important;
-            -webkit-text-fill-color: #ffffff !important;
-        }
-        
-        .stTextArea > div > div > textarea {
-            color: #ffffff !important;
-            background: rgba(255, 255, 255, 0.1) !important;
-            -webkit-text-fill-color: #ffffff !important;
-        }
-        
+        /* Fix all input text colors - CRITICAL FIX */
+        .stTextInput > div > div > input,
+        .stTextArea > div > div > textarea,
         .stNumberInput > div > div > input {
             color: #ffffff !important;
-            background: rgba(255, 255, 255, 0.1) !important;
-            -webkit-text-fill-color: #ffffff !important;
+            background: rgba(0, 0, 0, 0.3) !important;
+            border: 2px solid rgba(255, 255, 255, 0.3) !important;
+            border-radius: 12px !important;
+            padding: 12px !important;
+            font-weight: 500 !important;
         }
         
-        /* Placeholder text */
-        input::placeholder,
-        textarea::placeholder {
-            color: rgba(255, 255, 255, 0.5) !important;
-            opacity: 1 !important;
+        .stTextInput > div > div > input::placeholder,
+        .stTextArea > div > div > textarea::placeholder {
+            color: rgba(255, 255, 255, 0.6) !important;
         }
         
-        input::-webkit-input-placeholder,
-        textarea::-webkit-input-placeholder {
-            color: rgba(255, 255, 255, 0.5) !important;
-        }
-        
-        /* Focus states */
-        input:focus,
-        textarea:focus {
+        .stTextInput > div > div > input:focus,
+        .stTextArea > div > div > textarea:focus,
+        .stNumberInput > div > div > input:focus {
             border-color: #ffffff !important;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3) !important;
+            background: rgba(0, 0, 0, 0.4) !important;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.4) !important;
             outline: none !important;
-            color: #ffffff !important;
-            -webkit-text-fill-color: #ffffff !important;
         }
         
-        /* Fix selectbox dropdown */
-        .stSelectbox > div > div {
-            background: rgba(255, 255, 255, 0.1) !important;
+        /* Extra specificity for chat input */
+        input[type="text"],
+        textarea {
             color: #ffffff !important;
+            background: rgba(0, 0, 0, 0.3) !important;
         }
         
+        /* Fix selectbox styling */
+        .stSelectbox > div > div,
         .stSelectbox [data-baseweb="select"] {
-            background: rgba(255, 255, 255, 0.1) !important;
+            background: rgba(0, 0, 0, 0.3) !important;
+            color: #ffffff !important;
+            border: 2px solid rgba(255, 255, 255, 0.3) !important;
+            border-radius: 12px !important;
         }
         
         .stSelectbox [data-baseweb="select"] > div {
-            background: rgba(255, 255, 255, 0.1) !important;
+            background: transparent !important;
             color: #ffffff !important;
         }
         
-        .stSelectbox input {
-            color: #ffffff !important;
-            -webkit-text-fill-color: #ffffff !important;
+        .stSelectbox [data-baseweb="select"] svg {
+            fill: #ffffff !important;
         }
         
-        /* Dropdown menu */
+        /* Dropdown menu styling */
         [data-baseweb="popover"] {
-            background: rgba(102, 126, 234, 0.95) !important;
-            backdrop-filter: blur(10px);
+            background: rgba(102, 126, 234, 0.98) !important;
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
         }
         
         [data-baseweb="menu"] {
-            background: rgba(102, 126, 234, 0.95) !important;
+            background: transparent !important;
         }
         
         [role="option"] {
             color: #ffffff !important;
             background: transparent !important;
+            padding: 12px 16px !important;
         }
         
         [role="option"]:hover {
-            background: rgba(255, 255, 255, 0.2) !important;
+            background: rgba(255, 255, 255, 0.25) !important;
         }
         
         .main-header {
