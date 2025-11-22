@@ -28,31 +28,59 @@ def local_css():
             color: #ffffff;
         }
         
-        /* Fix all input text colors to white */
-        .stTextInput input,
-        .stTextArea textarea,
-        .stSelectbox select,
-        .stNumberInput input,
-        input, textarea, select {
+        /* Fix all input text colors to white - CRITICAL */
+        input[type="text"],
+        input[type="password"],
+        input[type="number"],
+        input[type="email"],
+        textarea {
             color: #ffffff !important;
             background: rgba(255, 255, 255, 0.1) !important;
             border: 1px solid rgba(255, 255, 255, 0.3) !important;
             border-radius: 12px !important;
             padding: 12px !important;
+            -webkit-text-fill-color: #ffffff !important;
         }
         
-        .stTextInput input::placeholder,
-        .stTextArea textarea::placeholder {
+        /* Streamlit specific input overrides */
+        .stTextInput > div > div > input {
+            color: #ffffff !important;
+            background: rgba(255, 255, 255, 0.1) !important;
+            -webkit-text-fill-color: #ffffff !important;
+        }
+        
+        .stTextArea > div > div > textarea {
+            color: #ffffff !important;
+            background: rgba(255, 255, 255, 0.1) !important;
+            -webkit-text-fill-color: #ffffff !important;
+        }
+        
+        .stNumberInput > div > div > input {
+            color: #ffffff !important;
+            background: rgba(255, 255, 255, 0.1) !important;
+            -webkit-text-fill-color: #ffffff !important;
+        }
+        
+        /* Placeholder text */
+        input::placeholder,
+        textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5) !important;
+            opacity: 1 !important;
+        }
+        
+        input::-webkit-input-placeholder,
+        textarea::-webkit-input-placeholder {
             color: rgba(255, 255, 255, 0.5) !important;
         }
         
-        .stTextInput input:focus,
-        .stTextArea textarea:focus,
-        .stSelectbox select:focus,
-        .stNumberInput input:focus {
+        /* Focus states */
+        input:focus,
+        textarea:focus {
             border-color: #ffffff !important;
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.3) !important;
             outline: none !important;
+            color: #ffffff !important;
+            -webkit-text-fill-color: #ffffff !important;
         }
         
         /* Fix selectbox dropdown */
@@ -68,6 +96,11 @@ def local_css():
         .stSelectbox [data-baseweb="select"] > div {
             background: rgba(255, 255, 255, 0.1) !important;
             color: #ffffff !important;
+        }
+        
+        .stSelectbox input {
+            color: #ffffff !important;
+            -webkit-text-fill-color: #ffffff !important;
         }
         
         /* Dropdown menu */
