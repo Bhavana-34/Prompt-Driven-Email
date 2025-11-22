@@ -24,27 +24,88 @@ def local_css():
         }
         
         .stApp { 
-            background: linear-gradient(to bottom right, #0f0c29, #302b63, #24243e);
-            color: #e0e0e0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+        }
+        
+        /* Fix all input text colors to white */
+        .stTextInput input,
+        .stTextArea textarea,
+        .stSelectbox select,
+        .stNumberInput input,
+        input, textarea, select {
+            color: #ffffff !important;
+            background: rgba(255, 255, 255, 0.1) !important;
+            border: 1px solid rgba(255, 255, 255, 0.3) !important;
+            border-radius: 12px !important;
+            padding: 12px !important;
+        }
+        
+        .stTextInput input::placeholder,
+        .stTextArea textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5) !important;
+        }
+        
+        .stTextInput input:focus,
+        .stTextArea textarea:focus,
+        .stSelectbox select:focus,
+        .stNumberInput input:focus {
+            border-color: #ffffff !important;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3) !important;
+            outline: none !important;
+        }
+        
+        /* Fix selectbox dropdown */
+        .stSelectbox > div > div {
+            background: rgba(255, 255, 255, 0.1) !important;
+            color: #ffffff !important;
+        }
+        
+        .stSelectbox [data-baseweb="select"] {
+            background: rgba(255, 255, 255, 0.1) !important;
+        }
+        
+        .stSelectbox [data-baseweb="select"] > div {
+            background: rgba(255, 255, 255, 0.1) !important;
+            color: #ffffff !important;
+        }
+        
+        /* Dropdown menu */
+        [data-baseweb="popover"] {
+            background: rgba(102, 126, 234, 0.95) !important;
+            backdrop-filter: blur(10px);
+        }
+        
+        [data-baseweb="menu"] {
+            background: rgba(102, 126, 234, 0.95) !important;
+        }
+        
+        [role="option"] {
+            color: #ffffff !important;
+            background: transparent !important;
+        }
+        
+        [role="option"]:hover {
+            background: rgba(255, 255, 255, 0.2) !important;
         }
         
         .main-header {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+            padding: 40px;
             margin-bottom: 30px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
         
         .glass-card {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 16px;
-            padding: 20px;
-            margin: 15px 0;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 25px;
+            margin: 20px 0;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -52,68 +113,50 @@ def local_css():
         .glass-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-            border-color: rgba(138, 180, 248, 0.5);
+            border-color: rgba(255, 255, 255, 0.4);
         }
         
-        .email-card {
-            background: linear-gradient(135deg, rgba(138, 180, 248, 0.1) 0%, rgba(83, 122, 255, 0.05) 100%);
-            border-left: 4px solid #8ab4f8;
-            border-radius: 12px;
-            padding: 20px;
-            margin: 15px 0;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
-        }
-        
-        .email-card:hover {
-            border-left-width: 6px;
-            box-shadow: 0 8px 30px rgba(138, 180, 248, 0.3);
-        }
-        
-        .email-list-item {
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 15px;
-            margin: 10px 0;
+        .email-preview-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 16px;
+            margin: 12px 0;
             cursor: pointer;
             transition: all 0.3s ease;
         }
         
-        .email-list-item:hover {
-            background: rgba(138, 180, 248, 0.15);
-            border-color: #8ab4f8;
+        .email-preview-card:hover {
+            background: rgba(255, 255, 255, 0.2);
             transform: translateX(5px);
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
         }
         
-        .email-list-item.selected {
-            background: linear-gradient(135deg, rgba(138, 180, 248, 0.25) 0%, rgba(83, 122, 255, 0.15) 100%);
-            border: 2px solid #8ab4f8;
-            box-shadow: 0 0 20px rgba(138, 180, 248, 0.4);
+        .email-preview-card.selected {
+            background: rgba(255, 255, 255, 0.25);
+            border: 2px solid #ffffff;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
         }
         
         .category-badge {
             display: inline-block;
-            padding: 6px 14px;
+            padding: 8px 16px;
             border-radius: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: rgba(255, 255, 255, 0.25);
             color: white;
             margin: 5px;
             font-size: 0.85em;
-            font-weight: 500;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
         
         .task-item {
-            background: rgba(255, 255, 255, 0.08);
-            border-left: 3px solid #4ade80;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 10px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 10px rgba(74, 222, 128, 0.2);
+            background: rgba(255, 255, 255, 0.15);
+            border-left: 4px solid #4ade80;
+            padding: 16px;
+            margin: 12px 0;
+            border-radius: 12px;
+            color: #ffffff;
         }
         
         .chat-container {
@@ -126,152 +169,164 @@ def local_css():
         }
         
         .chat-bubble-user {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: rgba(255, 255, 255, 0.25);
             color: white;
             padding: 14px 18px;
             border-radius: 18px 18px 4px 18px;
             margin: 10px 0;
             max-width: 75%;
             margin-left: auto;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             font-size: 0.95em;
         }
         
         .chat-bubble-assistant {
-            background: rgba(255, 255, 255, 0.1);
-            color: #e0e0e0;
+            background: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
             padding: 14px 18px;
             border-radius: 18px 18px 18px 4px;
             margin: 10px 0;
             max-width: 75%;
             margin-right: auto;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             font-size: 0.95em;
         }
         
         .section-header {
-            color: #8ab4f8;
-            font-size: 1.4em;
-            font-weight: 600;
-            margin: 25px 0 15px 0;
-            padding-bottom: 10px;
-            border-bottom: 2px solid rgba(138, 180, 248, 0.5);
-            text-shadow: 0 0 10px rgba(138, 180, 248, 0.5);
+            color: #ffffff;
+            font-size: 1.6em;
+            font-weight: 700;
+            margin: 30px 0 20px 0;
+            padding-bottom: 12px;
+            border-bottom: 3px solid rgba(255, 255, 255, 0.4);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
         
         .stButton>button {
-            border-radius: 10px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.2);
             color: white;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 10px 24px;
-            font-weight: 500;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 12px 28px;
+            font-weight: 600;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            backdrop-filter: blur(10px);
         }
         
         .stButton>button:hover {
+            background: rgba(255, 255, 255, 0.3);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
-            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
         }
         
         .metric-card {
-            background: linear-gradient(135deg, rgba(138, 180, 248, 0.15) 0%, rgba(83, 122, 255, 0.1) 100%);
-            padding: 20px;
-            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 25px;
+            border-radius: 20px;
             text-align: center;
-            border: 1px solid rgba(138, 180, 248, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         }
         
         .metric-value {
-            font-size: 2.5em;
+            font-size: 3em;
             font-weight: 700;
-            color: #8ab4f8;
-            text-shadow: 0 0 20px rgba(138, 180, 248, 0.6);
+            color: #ffffff;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
         
         .metric-label {
-            font-size: 0.9em;
-            color: #b8b8b8;
-            margin-top: 5px;
-        }
-        
-        .stTextInput>div>div>input {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            color: #e0e0e0;
-            padding: 12px;
-        }
-        
-        .stTextInput>div>div>input:focus {
-            border-color: #8ab4f8;
-            box-shadow: 0 0 15px rgba(138, 180, 248, 0.3);
-        }
-        
-        .stTextArea>div>div>textarea {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            color: #e0e0e0;
-        }
-        
-        .stSelectbox>div>div {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            color: #e0e0e0;
+            font-size: 1em;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 8px;
+            font-weight: 500;
         }
         
         .success-badge {
             background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             color: white;
-            padding: 8px 16px;
+            padding: 10px 20px;
             border-radius: 20px;
             display: inline-block;
-            font-weight: 500;
+            font-weight: 600;
             box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
         
         .warning-badge {
             background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
             color: white;
-            padding: 8px 16px;
+            padding: 10px 20px;
             border-radius: 20px;
             display: inline-block;
-            font-weight: 500;
+            font-weight: 600;
             box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
         
-        h1, h2, h3 {
-            color: #e0e0e0;
+        h1, h2, h3, h4, h5, h6 {
+            color: #ffffff !important;
         }
         
         .muted {
-            color: #9ca3af;
+            color: rgba(255, 255, 255, 0.7);
             font-size: 0.9em;
         }
         
+        p, span, div, label {
+            color: #ffffff;
+        }
+        
+        .stExpander {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+        }
+        
+        /* Scrollbar */
         ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
         }
         
         ::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
         }
         
         ::-webkit-scrollbar-thumb {
-            background: rgba(138, 180, 248, 0.5);
-            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 5px;
         }
         
         ::-webkit-scrollbar-thumb:hover {
-            background: rgba(138, 180, 248, 0.8);
+            background: rgba(255, 255, 255, 0.6);
+        }
+        
+        /* Email detail view */
+        .email-detail-header {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 25px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .back-button {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            padding: 10px 20px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(-5px);
         }
         </style>
         """,
@@ -294,8 +349,16 @@ def _friendly_imap_error(exc: Exception):
 
 init_db()
 
+# Initialize session state
+if 'selected_email' not in st.session_state:
+    st.session_state['selected_email'] = None
+if 'view_mode' not in st.session_state:
+    st.session_state['view_mode'] = 'inbox'  # 'inbox' or 'detail'
+if 'chat_history' not in st.session_state:
+    st.session_state.chat_history = []
+
 # Sidebar Configuration
-st.sidebar.markdown("<h2 style='text-align: center; color: #8ab4f8;'>⚙️ Configuration</h2>", unsafe_allow_html=True)
+st.sidebar.markdown("<h2 style='text-align: center; color: #ffffff;'>⚙️ Configuration</h2>", unsafe_allow_html=True)
 
 # LLM mode indicator
 try:
@@ -334,10 +397,10 @@ with st.sidebar.expander('📝 Customize AI Prompts', expanded=False):
 # Main Header
 st.markdown("""
 <div class='main-header'>
-    <h1 style='text-align: center; color: #8ab4f8; font-size: 3em; margin: 0; text-shadow: 0 0 20px rgba(138, 180, 248, 0.5);'>
+    <h1 style='text-align: center; color: #ffffff; font-size: 3.5em; margin: 0; text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);'>
         📧 Email Productivity Agent
     </h1>
-    <p style='text-align: center; color: #b8b8b8; font-size: 1.2em; margin-top: 10px;'>
+    <p style='text-align: center; color: rgba(255, 255, 255, 0.9); font-size: 1.3em; margin-top: 10px;'>
         AI-Powered Email Intelligence Platform
     </p>
 </div>
@@ -360,10 +423,8 @@ with st.expander('👋 Quick Start Guide', expanded=False):
     col_a, col_b, col_c = st.columns(3)
     if col_a.button('📥 Load Demo', use_container_width=True):
         load_mock_emails(str(MOCK_PATH))
-        try:
-            st.experimental_rerun()
-        except Exception:
-            st.success('✅ Demo loaded!')
+        st.success('✅ Demo loaded!')
+        st.rerun()
     
     if col_b.button('🧪 Test AI', use_container_width=True):
         try:
@@ -395,123 +456,157 @@ with st.expander('👋 Quick Start Guide', expanded=False):
 
 st.markdown("---")
 
-# Main Layout
-col1, col2 = st.columns([1, 2.5])
-
-with col1:
-    st.markdown("<div class='section-header'>📬 Inbox</div>", unsafe_allow_html=True)
+# View Mode Logic
+if st.session_state.view_mode == 'inbox':
+    # INBOX VIEW
+    col_top1, col_top2 = st.columns([2, 1])
     
-    # Quick Actions
-    col_btn1, col_btn2 = st.columns(2)
-    with col_btn1:
-        if st.button('📥 Load Mock', use_container_width=True):
-            load_mock_emails(str(MOCK_PATH))
-            try:
-                st.experimental_rerun()
-            except Exception:
+    with col_top1:
+        st.markdown("<div class='section-header'>📬 Email Inbox</div>", unsafe_allow_html=True)
+    
+    with col_top2:
+        col_btn1, col_btn2 = st.columns(2)
+        with col_btn1:
+            if st.button('📥 Load Mock', use_container_width=True):
+                load_mock_emails(str(MOCK_PATH))
                 st.success('✅ Loaded!')
-    
-    with col_btn2:
-        with st.popover("🌐 IMAP"):
-            st.markdown("### Connect Email")
-            provider = st.selectbox('Provider', ['Gmail', 'Outlook', 'Yahoo', 'iCloud', 'Custom'])
-            provider_hosts = {
-                'Gmail': 'imap.gmail.com',
-                'Outlook': 'outlook.office365.com',
-                'Yahoo': 'imap.mail.yahoo.com',
-                'iCloud': 'imap.mail.me.com'
-            }
-            imap_server = st.text_input('Server', value=provider_hosts.get(provider, ''))
-            imap_user = st.text_input('Email')
-            imap_pass = st.text_input('Password', type='password')
-            imap_limit = st.number_input('Max Messages', value=50, min_value=1, max_value=500)
-            
-            if provider == 'Gmail':
-                st.info('💡 Use App Password with 2FA')
-            
-            col_t1, col_t2 = st.columns(2)
-            if col_t1.button('🔍 Test'):
-                import imaplib
-                if imap_server and imap_user and imap_pass:
-                    try:
-                        with st.spinner('Testing...'):
-                            M = imaplib.IMAP4_SSL(imap_server)
-                            M.login(imap_user, imap_pass)
-                            M.logout()
-                        st.success('✅ Success!')
-                    except Exception as e:
-                        _friendly_imap_error(e)
-                else:
-                    st.error('⚠️ Fill all fields')
-            
-            if col_t2.button('📥 Fetch'):
-                if imap_server and imap_user and imap_pass:
-                    try:
-                        with st.spinner('Fetching...'):
-                            msgs = fetch_imap_emails(imap_server, imap_user, imap_pass, limit=imap_limit)
-                            import sqlite3
-                            init_db()
-                            conn = sqlite3.connect(os.path.join(os.path.dirname(__file__), 'data', 'email_agent.db'))
-                            c = conn.cursor()
-                            for m in msgs:
-                                c.execute('SELECT 1 FROM emails WHERE id=?', (m['id'],))
-                                if c.fetchone():
-                                    continue
-                                c.execute('INSERT INTO emails(id, sender, subject, timestamp, body) VALUES (?, ?, ?, ?, ?)',
-                                          (m['id'], m['sender'], m['subject'], m['timestamp'], m['body']))
-                            conn.commit()
-                            conn.close()
-                        st.success(f'✅ {len(msgs)} fetched!')
+                st.rerun()
+        
+        with col_btn2:
+            with st.popover("🌐 IMAP"):
+                st.markdown("### Connect Email")
+                provider = st.selectbox('Provider', ['Gmail', 'Outlook', 'Yahoo', 'iCloud', 'Custom'])
+                provider_hosts = {
+                    'Gmail': 'imap.gmail.com',
+                    'Outlook': 'outlook.office365.com',
+                    'Yahoo': 'imap.mail.yahoo.com',
+                    'iCloud': 'imap.mail.me.com'
+                }
+                imap_server = st.text_input('Server', value=provider_hosts.get(provider, ''))
+                imap_user = st.text_input('Email')
+                imap_pass = st.text_input('Password', type='password')
+                imap_limit = st.number_input('Max Messages', value=50, min_value=1, max_value=500)
+                
+                if provider == 'Gmail':
+                    st.info('💡 Use App Password with 2FA')
+                
+                col_t1, col_t2 = st.columns(2)
+                if col_t1.button('🔍 Test'):
+                    import imaplib
+                    if imap_server and imap_user and imap_pass:
                         try:
-                            st.experimental_rerun()
-                        except:
-                            _show_reload_script(800)
-                    except Exception as e:
-                        _friendly_imap_error(e)
-                else:
-                    st.error('⚠️ Fill all fields')
+                            with st.spinner('Testing...'):
+                                M = imaplib.IMAP4_SSL(imap_server)
+                                M.login(imap_user, imap_pass)
+                                M.logout()
+                            st.success('✅ Success!')
+                        except Exception as e:
+                            _friendly_imap_error(e)
+                    else:
+                        st.error('⚠️ Fill all fields')
+                
+                if col_t2.button('📥 Fetch'):
+                    if imap_server and imap_user and imap_pass:
+                        try:
+                            with st.spinner('Fetching...'):
+                                msgs = fetch_imap_emails(imap_server, imap_user, imap_pass, limit=imap_limit)
+                                import sqlite3
+                                init_db()
+                                conn = sqlite3.connect(os.path.join(os.path.dirname(__file__), 'data', 'email_agent.db'))
+                                c = conn.cursor()
+                                for m in msgs:
+                                    c.execute('SELECT 1 FROM emails WHERE id=?', (m['id'],))
+                                    if c.fetchone():
+                                        continue
+                                    c.execute('INSERT INTO emails(id, sender, subject, timestamp, body) VALUES (?, ?, ?, ?, ?)',
+                                              (m['id'], m['sender'], m['subject'], m['timestamp'], m['body']))
+                                conn.commit()
+                                conn.close()
+                            st.success(f'✅ {len(msgs)} fetched!')
+                            st.rerun()
+                        except Exception as e:
+                            _friendly_imap_error(e)
+                    else:
+                        st.error('⚠️ Fill all fields')
     
-    # Email List
+    # Stats Dashboard
     emails = get_emails()
-    st.markdown(f"<p style='color: #8ab4f8; font-weight: 600;'>📨 {len(emails)} Messages</p>", unsafe_allow_html=True)
+    col_s1, col_s2, col_s3 = st.columns(3)
     
-    if 'selected_email' not in st.session_state:
-        st.session_state['selected_email'] = None
+    with col_s1:
+        st.markdown(f"""
+        <div class='metric-card'>
+            <div class='metric-value'>{len(emails)}</div>
+            <div class='metric-label'>Total Emails</div>
+        </div>
+        """, unsafe_allow_html=True)
     
+    with col_s2:
+        processed_count = sum(1 for e in emails if get_processed(e['id']))
+        st.markdown(f"""
+        <div class='metric-card'>
+            <div class='metric-value'>{processed_count}</div>
+            <div class='metric-label'>Processed</div>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col_s3:
+        draft_count = sum(len(get_drafts(e['id']) or []) for e in emails)
+        st.markdown(f"""
+        <div class='metric-card'>
+            <div class='metric-value'>{draft_count}</div>
+            <div class='metric-label'>Drafts Generated</div>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    st.markdown("<br>", unsafe_allow_html=True)
+    
+    # Email List with better organization
     if emails:
-        for e in emails:
-            is_selected = st.session_state.get('selected_email') == e['id']
-            preview = e.get('subject', '(no subject)')[:45]
-            sender = e.get('sender', 'Unknown')[:25]
+        st.markdown(f"<p style='color: #ffffff; font-weight: 600; font-size: 1.1em;'>📨 {len(emails)} Messages</p>", unsafe_allow_html=True)
+        
+        # Show emails in a grid
+        for idx, e in enumerate(emails):
+            col_email, col_btn = st.columns([5, 1])
             
-            if st.button(f"{'✉️' if is_selected else '📧'} {preview}", 
-                        key=f"select-{e['id']}", 
-                        use_container_width=True,
-                        type='primary' if is_selected else 'secondary'):
-                st.session_state['selected_email'] = e['id']
-                try:
-                    st.experimental_rerun()
-                except:
+            with col_email:
+                preview = e.get('subject', '(no subject)')[:60]
+                sender = e.get('sender', 'Unknown')
+                timestamp = e.get('timestamp', '')
+                
+                st.markdown(f"""
+                <div class='email-preview-card'>
+                    <div style='font-weight: 600; font-size: 1.1em; margin-bottom: 5px;'>📧 {preview}</div>
+                    <div style='color: rgba(255, 255, 255, 0.7); font-size: 0.9em;'>From: {sender}</div>
+                    <div style='color: rgba(255, 255, 255, 0.6); font-size: 0.85em;'>{timestamp}</div>
+                </div>
+                """, unsafe_allow_html=True)
+            
+            with col_btn:
+                if st.button('Open →', key=f"open-{e['id']}", use_container_width=True):
+                    st.session_state['selected_email'] = e['id']
+                    st.session_state['view_mode'] = 'detail'
+                    st.session_state.chat_history = []
                     st.rerun()
-            
-            st.markdown(f"<p class='muted'>From: {sender}</p>", unsafe_allow_html=True)
-            if is_selected:
-                st.markdown("<hr style='border: 2px solid #8ab4f8; margin: 8px 0;'>", unsafe_allow_html=True)
-            else:
-                st.markdown("---")
     else:
         st.info("📭 No emails. Load mock data to start!")
-    
-    selected = st.session_state.get('selected_email')
 
-with col2:
+else:
+    # DETAIL VIEW
+    selected = st.session_state.get('selected_email')
+    
+    if st.button('← Back to Inbox', key='back_to_inbox'):
+        st.session_state['view_mode'] = 'inbox'
+        st.session_state['selected_email'] = None
+        st.rerun()
+    
     if selected:
         email = get_email(selected)
         
-        st.markdown("<div class='glass-card'>", unsafe_allow_html=True)
+        st.markdown("<div class='email-detail-header'>", unsafe_allow_html=True)
         
         # Email Header
-        st.markdown(f"<h2 style='color: #8ab4f8; margin-bottom: 15px;'>📧 {email.get('subject','(no subject)')}</h2>", unsafe_allow_html=True)
+        st.markdown(f"<h2 style='color: #ffffff; margin-bottom: 15px;'>📧 {email.get('subject','(no subject)')}</h2>", unsafe_allow_html=True)
         
         col_meta1, col_meta2 = st.columns(2)
         with col_meta1:
@@ -519,9 +614,19 @@ with col2:
         with col_meta2:
             st.markdown(f"<p><strong>🕐 Date:</strong> {email.get('timestamp')}</p>", unsafe_allow_html=True)
         
+        st.markdown("</div>", unsafe_allow_html=True)
+        
+        # Email Content
+        st.markdown("<div class='glass-card'>", unsafe_allow_html=True)
+        st.markdown("**📄 Email Content:**")
+        st.markdown(f"<pre style='white-space: pre-wrap; color: #ffffff; background: rgba(0,0,0,0.2); padding: 20px; border-radius: 12px;'>{email.get('body')}</pre>", unsafe_allow_html=True)
+        st.markdown("</div>", unsafe_allow_html=True)
+        
         # Categories and Tasks
         proc = get_processed(selected)
         if proc:
+            st.markdown("<div class='glass-card'>", unsafe_allow_html=True)
+            
             cats = proc.get('categories')
             tasks = proc.get('tasks')
             
@@ -538,16 +643,12 @@ with col2:
                     st.markdown(f"<span class='category-badge'>{c}</span>", unsafe_allow_html=True)
             
             if tasks:
-                st.markdown("**✅ Action Items:**", unsafe_allow_html=True)
+                st.markdown("<br>**✅ Action Items:**", unsafe_allow_html=True)
                 for t in tasks:
                     task_text = t.get('task') or t.get('raw', 'Task')
                     st.markdown(f"<div class='task-item'>📌 {task_text}</div>", unsafe_allow_html=True)
-        
-        # Email Body
-        st.markdown("**📄 Content:**")
-        st.markdown(f"<div class='email-card'><pre style='white-space: pre-wrap; color: #e0e0e0;'>{email.get('body')}</pre></div>", unsafe_allow_html=True)
-        
-        st.markdown("</div>", unsafe_allow_html=True)
+            
+            st.markdown("</div>", unsafe_allow_html=True)
         
         # AI Processing Section
         st.markdown("<div class='section-header'>🤖 AI Actions</div>", unsafe_allow_html=True)
@@ -555,23 +656,20 @@ with col2:
         col_act1, col_act2, col_act3 = st.columns(3)
         
         with col_act1:
-            if st.button('🔍 Analyze', use_container_width=True):
+            if st.button('🔍 Analyze Email', use_container_width=True):
                 db_prompts = get_prompts()
                 with st.spinner('🤖 Analyzing...'):
                     categories = llm.categorize(email.get('body',''), db_prompts.get('categorization_prompt', ''))
                     tasks = llm.extract_actions(email.get('body',''), db_prompts.get('action_item_prompt', ''))
                     save_processed(selected, categories, tasks)
-                st.success('✅ Done!')
-                try:
-                    st.experimental_rerun()
-                except:
-                    st.rerun()
+                st.success('✅ Analysis complete!')
+                st.rerun()
         
         with col_act2:
-            tone = st.selectbox('Tone', ['friendly','professional','concise','formal'], key='tone_select')
+            tone = st.selectbox('Reply Tone', ['friendly','professional','concise','formal'], key='tone_select')
         
         with col_act3:
-            if st.button('✍️ Draft', use_container_width=True):
+            if st.button('✍️ Generate Draft', use_container_width=True):
                 db_prompts = get_prompts()
                 with st.spinner('✍️ Drafting...'):
                     draft = llm.generate_draft(email.get('body',''), db_prompts.get('auto_reply_prompt', ''), tone)
@@ -579,143 +677,87 @@ with col2:
                     body = draft.get('body') or draft.get('text') or str(draft)
                     save_draft(selected, subj, body, {'generated_by': 'llm', 'tone': tone})
                 st.success('✅ Draft saved!')
-                try:
-                    st.experimental_rerun()
-                except:
-                    st.rerun()
+                st.rerun()
         
-        # View Drafts
-        if st.button('📝 View Drafts', use_container_width=True):
-            drafts = get_drafts(selected)
-            if drafts:
-                for d in drafts:
-                    st.markdown(f"<div class='glass-card'><strong>Draft #{d['id']}</strong> — {d['subject']}</div>", unsafe_allow_html=True)
-                    st.text_area(f"Draft {d['id']}", value=d['body'], height=120, key=f"draft_{d['id']}")
-            else:
-                st.info("No drafts yet!")
+        # View Drafts Section
+        st.markdown("<div class='section-header'>📝 Generated Drafts</div>", unsafe_allow_html=True)
+        
+        drafts = get_drafts(selected)
+        if drafts:
+            for d in drafts:
+                with st.expander(f"📄 Draft #{d['id']} - {d['subject']}", expanded=False):
+                    st.text_area(f"Draft Content {d['id']}", value=d['body'], height=200, key=f"draft_{d['id']}")
+        else:
+            st.info("No drafts yet. Click 'Generate Draft' to create one!")
         
         # Chat Assistant
-        st.markdown("<div class='section-header'>💬 AI Chat</div>", unsafe_allow_html=True)
+        st.markdown("<div class='section-header'>💬 AI Chat Assistant</div>", unsafe_allow_html=True)
         
-        if 'chat_history' not in st.session_state:
-            st.session_state.chat_history = []
+        # Chat History Display
+        if st.session_state.chat_history:
+            st.markdown("<div class='chat-container'>", unsafe_allow_html=True)
+            for m in st.session_state.chat_history:
+                st.markdown(f"<div class='chat-bubble-user'><strong>You:</strong><br>{m['user']}</div>", unsafe_allow_html=True)
+                st.markdown(f"<div class='chat-bubble-assistant'><strong>AI:</strong><br>{m['assistant']}</div>", unsafe_allow_html=True)
+            st.markdown("</div>", unsafe_allow_html=True)
+        else:
+            st.info("💡 Start chatting! Ask about summaries, tasks, or anything else about this email.")
         
+        # Chat Input
         col_input, col_send = st.columns([5, 1])
         with col_input:
-            user_q = st.text_input('Ask anything...', placeholder='e.g., Summarize this email', key='chat_input', label_visibility='collapsed')
+            user_q = st.text_input('Ask anything about this email...', placeholder='e.g., Summarize this email in 3 sentences', key='chat_input', label_visibility='collapsed')
         with col_send:
-            send_clicked = st.button('💬', use_container_width=True, key='send_chat')
+            send_clicked = st.button('Send 💬', use_container_width=True, key='send_chat')
         
         if send_clicked and user_q and user_q.strip():
             db_prompts = get_prompts()
             with st.spinner('🤖 Thinking...'):
                 answer = llm.chat_with_email(email.get('body',''), db_prompts, user_q)
                 st.session_state.chat_history.append({'user': user_q, 'assistant': answer})
-            try:
-                st.experimental_rerun()
-            except:
+            st.rerun()
+        
+        if st.session_state.chat_history:
+            if st.button('🗑️ Clear Chat History'):
+                st.session_state.chat_history = []
                 st.rerun()
         
-        # Chat History
-        if st.session_state.chat_history:
-            st.markdown("<div class='chat-container'>", unsafe_allow_html=True)
-            for m in st.session_state.chat_history:
-                st.markdown(f"<div class='chat-bubble-user'>{m['user']}</div>", unsafe_allow_html=True)
-                st.markdown(f"<div class='chat-bubble-assistant'>{m['assistant']}</div>", unsafe_allow_html=True)
-            st.markdown("</div>", unsafe_allow_html=True)
-            
-            if st.button('🗑️ Clear Chat'):
-                st.session_state.chat_history = []
-                try:
-                    st.experimental_rerun()
-                except:
-                    st.rerun()
-        else:
-            st.info("💡 Start chatting! Ask about tasks, summaries, or anything else.")
-        
         # Prompt Tester
-        st.markdown("<div class='section-header'>🧪 Prompt Lab</div>", unsafe_allow_html=True)
-        
-        col_p1, col_p2 = st.columns([2, 1])
-        with col_p1:
-            prompt_type = st.selectbox('Test Prompt', ['categorization_prompt','action_item_prompt','auto_reply_prompt','chat_system_instructions'])
-        with col_p2:
-            test_tone = st.selectbox('Tone', ['friendly','professional','concise','formal'], key='test_tone')
-        
-        tester_input = st.text_area('Input', value=email.get('body','')[:300], height=100)
-        
-        if st.button('🚀 Run Test', use_container_width=True):
-            with st.spinner('🧪 Testing...'):
-                try:
-                    tester_prompt = get_prompts().get(prompt_type, '')
-                    
-                    if prompt_type == 'categorization_prompt':
-                        out = llm.categorize(tester_input, tester_prompt)
-                        st.markdown("**📊 Categorization Results:**")
-                    elif prompt_type == 'action_item_prompt':
-                        out = llm.extract_actions(tester_input, tester_prompt)
-                        st.markdown("**✅ Extracted Actions:**")
-                    elif prompt_type == 'auto_reply_prompt':
-                        out = llm.generate_draft(tester_input, tester_prompt, test_tone)
-                        st.markdown("**✍️ Generated Draft:**")
-                    else:
-                        out = llm.chat_with_email(tester_input, get_prompts(), 'Summarize')
-                        st.markdown("**💬 Chat Response:**")
-                    
-                    st.markdown("<div class='glass-card'>", unsafe_allow_html=True)
+        with st.expander("🧪 Prompt Lab - Test AI Prompts", expanded=False):
+            st.markdown("### Test and experiment with different AI prompts")
+            
+            col_p1, col_p2 = st.columns([2, 1])
+            with col_p1:
+                prompt_type = st.selectbox('Select Prompt Type', ['categorization_prompt','action_item_prompt','auto_reply_prompt','chat_system_instructions'])
+            with col_p2:
+                test_tone = st.selectbox('Test Tone', ['friendly','professional','concise','formal'], key='test_tone')
+            
+            tester_input = st.text_area('Test Input', value=email.get('body','')[:300], height=150)
+            
+            if st.button('🚀 Run Test', use_container_width=True, key='run_prompt_test'):
+                with st.spinner('🧪 Testing prompt...'):
                     try:
-                        st.json(out)
-                    except:
-                        st.code(str(out), language='text')
-                    st.markdown("</div>", unsafe_allow_html=True)
-                    st.success('✅ Test complete!')
-                except Exception as e:
-                    st.error(f'❌ Test failed: {str(e)}')
-    
-    else:
-        # No email selected
-        st.markdown("<div class='glass-card' style='padding: 40px;'>", unsafe_allow_html=True)
-        st.markdown("<h2 style='text-align: center; color: #8ab4f8;'>📬 Select an Email</h2>", unsafe_allow_html=True)
-        st.markdown("<p style='text-align: center; color: #9ca3af;'>Choose an email from the inbox to view details and use AI features</p>", unsafe_allow_html=True)
-        
-        # Stats Dashboard
-        st.markdown("<div style='margin-top: 30px;'>", unsafe_allow_html=True)
-        emails = get_emails()
-        col_s1, col_s2, col_s3 = st.columns(3)
-        
-        with col_s1:
-            st.markdown(f"""
-            <div class='metric-card'>
-                <div class='metric-value'>{len(emails)}</div>
-                <div class='metric-label'>Total Emails</div>
-            </div>
-            """, unsafe_allow_html=True)
-        
-        with col_s2:
-            processed_count = sum(1 for e in emails if get_processed(e['id']))
-            st.markdown(f"""
-            <div class='metric-card'>
-                <div class='metric-value'>{processed_count}</div>
-                <div class='metric-label'>Processed</div>
-            </div>
-            """, unsafe_allow_html=True)
-        
-        with col_s3:
-            draft_count = sum(len(get_drafts(e['id']) or []) for e in emails)
-            st.markdown(f"""
-            <div class='metric-card'>
-                <div class='metric-value'>{draft_count}</div>
-                <div class='metric-label'>Drafts Generated</div>
-            </div>
-            """, unsafe_allow_html=True)
-        
-        st.markdown("</div>", unsafe_allow_html=True)
-        st.markdown("</div>", unsafe_allow_html=True)
-
-# Footer
-st.markdown("---")
-st.markdown("""
-<div style='text-align: center; color: #9ca3af; padding: 20px;'>
-    <p>🤖 Powered by AI • Built with Streamlit</p>
-</div>
-""", unsafe_allow_html=True)
+                        tester_prompt = get_prompts().get(prompt_type, '')
+                        
+                        if prompt_type == 'categorization_prompt':
+                            out = llm.categorize(tester_input, tester_prompt)
+                            st.markdown("**📊 Categorization Results:**")
+                        elif prompt_type == 'action_item_prompt':
+                            out = llm.extract_actions(tester_input, tester_prompt)
+                            st.markdown("**✅ Extracted Actions:**")
+                        elif prompt_type == 'auto_reply_prompt':
+                            out = llm.generate_draft(tester_input, tester_prompt, test_tone)
+                            st.markdown("**✍️ Generated Draft:**")
+                        else:
+                            out = llm.chat_with_email(tester_input, get_prompts(), 'Summarize this content')
+                            st.markdown("**💬 Chat Response:**")
+                        
+                        st.markdown("<div class='glass-card'>", unsafe_allow_html=True)
+                        try:
+                            st.json(out)
+                        except:
+                            st.code(str(out), language='text')
+                        st.markdown("</div>", unsafe_allow_html=True)
+                        st.success('✅ Test complete!')
+                    except Exception as e:
+                        st.error(f'❌ Test failed: {str(e)}')
