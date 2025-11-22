@@ -24,8 +24,33 @@ def local_css():
         }
         
         .stApp { 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
             color: #ffffff;
+        }
+        
+        /* Sidebar styling */
+        [data-testid="stSidebar"] {
+            background: linear-gradient(180deg, #a8edea 0%, #fed6e3 100%);
+        }
+        
+        [data-testid="stSidebar"] * {
+            color: #2d3748 !important;
+        }
+        
+        [data-testid="stSidebar"] h2 {
+            color: #5a67d8 !important;
+        }
+        
+        [data-testid="stSidebar"] .stTextArea textarea,
+        [data-testid="stSidebar"] .stTextInput input {
+            background: rgba(255, 255, 255, 0.7) !important;
+            color: #2d3748 !important;
+            border: 2px solid #cbd5e0 !important;
+        }
+        
+        [data-testid="stSidebar"] .stButton > button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white !important;
         }
         
         /* Fix all input text colors - CRITICAL FIX */
@@ -102,35 +127,46 @@ def local_css():
         }
         
         .main-header {
-            background: rgba(255, 255, 255, 0.1);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(168, 237, 234, 0.95) 100%);
             backdrop-filter: blur(20px);
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.5);
             border-radius: 24px;
             padding: 40px;
             margin-bottom: 30px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+        }
+        
+        .main-header h1 {
+            color: #5a67d8 !important;
+        }
+        
+        .main-header p {
+            color: #4a5568 !important;
         }
         
         .glass-card {
-            background: rgba(255, 255, 255, 0.15);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(254, 214, 227, 0.9) 100%);
             backdrop-filter: blur(20px);
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.5);
             border-radius: 20px;
             padding: 25px;
             margin: 20px 0;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .glass-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .glass-card * {
+            color: #2d3748 !important;
         }
         
         .email-preview-card {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(168, 237, 234, 0.85) 100%);
+            border: 2px solid rgba(102, 126, 234, 0.3);
             border-radius: 16px;
             padding: 16px;
             margin: 12px 0;
@@ -139,40 +175,47 @@ def local_css():
         }
         
         .email-preview-card:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(168, 237, 234, 0.95) 100%);
             transform: translateX(5px);
-            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
         }
         
         .email-preview-card.selected {
-            background: rgba(255, 255, 255, 0.25);
-            border: 2px solid #ffffff;
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+            background: linear-gradient(135deg, rgba(168, 237, 234, 0.95) 0%, rgba(254, 214, 227, 0.95) 100%);
+            border: 2px solid #667eea;
+            box-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
+        }
+        
+        .email-preview-card * {
+            color: #2d3748 !important;
         }
         
         .category-badge {
             display: inline-block;
             padding: 8px 16px;
             border-radius: 20px;
-            background: rgba(255, 255, 255, 0.25);
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             color: white;
             margin: 5px;
             font-size: 0.85em;
             font-weight: 600;
             border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 2px 10px rgba(240, 147, 251, 0.4);
         }
         
         .task-item {
-            background: rgba(255, 255, 255, 0.15);
-            border-left: 4px solid #4ade80;
+            background: linear-gradient(135deg, rgba(168, 237, 234, 0.8) 0%, rgba(254, 214, 227, 0.8) 100%);
+            border-left: 4px solid #48bb78;
             padding: 16px;
             margin: 12px 0;
             border-radius: 12px;
-            color: #ffffff;
+            color: #2d3748;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
         
         .chat-container {
-            background: rgba(0, 0, 0, 0.2);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(254, 214, 227, 0.85) 100%);
+            border: 2px solid rgba(255, 255, 255, 0.5);
             border-radius: 16px;
             padding: 20px;
             max-height: 400px;
@@ -181,7 +224,7 @@ def local_css():
         }
         
         .chat-bubble-user {
-            background: rgba(255, 255, 255, 0.25);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             padding: 14px 18px;
             border-radius: 18px 18px 4px 18px;
@@ -190,67 +233,69 @@ def local_css():
             margin-left: auto;
             border: 1px solid rgba(255, 255, 255, 0.3);
             font-size: 0.95em;
+            box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
         }
         
         .chat-bubble-assistant {
-            background: rgba(255, 255, 255, 0.15);
-            color: #ffffff;
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            color: #2d3748;
             padding: 14px 18px;
             border-radius: 18px 18px 18px 4px;
             margin: 10px 0;
             max-width: 75%;
             margin-right: auto;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(168, 237, 234, 0.5);
             font-size: 0.95em;
+            box-shadow: 0 2px 10px rgba(168, 237, 234, 0.3);
         }
         
         .section-header {
-            color: #ffffff;
+            color: #5a67d8;
             font-size: 1.6em;
             font-weight: 700;
             margin: 30px 0 20px 0;
             padding-bottom: 12px;
-            border-bottom: 3px solid rgba(255, 255, 255, 0.4);
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            border-bottom: 3px solid rgba(102, 126, 234, 0.5);
+            text-shadow: 0 2px 5px rgba(102, 126, 234, 0.3);
         }
         
         .stButton>button {
             border-radius: 12px;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white !important;
             border: 2px solid rgba(255, 255, 255, 0.3);
             padding: 12px 28px;
             font-weight: 600;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
         }
         
         .stButton>button:hover {
-            background: rgba(255, 255, 255, 0.3);
+            background: linear-gradient(135deg, #764ba2 0%, #f093fb 100%);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
-            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
         }
         
         .metric-card {
-            background: rgba(255, 255, 255, 0.15);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(240, 147, 251, 0.8) 100%);
             padding: 25px;
             border-radius: 20px;
             text-align: center;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.2);
         }
         
         .metric-value {
             font-size: 3em;
             font-weight: 700;
-            color: #ffffff;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            color: #5a67d8;
+            text-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
         }
         
         .metric-label {
             font-size: 1em;
-            color: rgba(255, 255, 255, 0.8);
+            color: #4a5568;
             margin-top: 8px;
             font-weight: 500;
         }
@@ -318,11 +363,20 @@ def local_css():
         
         /* Email detail view */
         .email-detail-header {
-            background: rgba(255, 255, 255, 0.15);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(168, 237, 234, 0.9) 100%);
             padding: 25px;
             border-radius: 20px;
             margin-bottom: 20px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.2);
+        }
+        
+        .email-detail-header * {
+            color: #2d3748 !important;
+        }
+        
+        .email-detail-header h2 {
+            color: #5a67d8 !important;
         }
         
         .back-button {
