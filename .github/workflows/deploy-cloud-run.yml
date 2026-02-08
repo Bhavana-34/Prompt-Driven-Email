@@ -1,0 +1,72 @@
+name: Build and Deploy to Cloud Run
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-deploy:
+    name: Build and Deploy to Google Cloud Run
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          project_id: ${{ secrets.GCP_PROJECT }}
+
+      - name: Configure Docker for GCR
+        run: |
+          gcloud auth configure-docker --quiet
+
+      - name: Create/Update Secret Manager secrets
+        env:
+          GCP_PROJECT: ${{ secrets.GCP_PROJECT }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          IMAP_USERNAME: ${{ secrets.IMAP_USERNAME }}
+          IMAP_PASSWORD: ${{ secrets.IMAP_PASSWORD }}
+        run: |
+          set -euo pipefail
+          echo "Preparing to create or update secrets in Secret Manager..."
+          # helper to push a secret value (create or add version)
+          push_secret() {
+            local name="$1"
+            local value="$2"
+            if gcloud secrets describe "$name" --project="$GCP_PROJECT" >/dev/null 2>&1; then
+              echo "Adding new version to existing secret: $name"
+              printf "%s" "$value" | gcloud secrets versions add "$name" --data-file=- --project="$GCP_PROJECT"
+            else
+              echo "Creating secret: $name"
+              printf "%s" "$value" | gcloud secrets create "$name" --data-file=- --project="$GCP_PROJECT" --replication-policy="automatic"
+            fi
+          }
+
+          # Ensure required GitHub secrets are set in the repo (action will fail clearly if not)
+          if [ -z "${OPENAI_API_KEY:-}" ]; then echo "Missing GitHub secret: OPENAI_API_KEY" >&2; exit 1; fi
+          if [ -z "${IMAP_USERNAME:-}" ]; then echo "Missing GitHub secret: IMAP_USERNAME" >&2; exit 1; fi
+          if [ -z "${IMAP_PASSWORD:-}" ]; then echo "Missing GitHub secret: IMAP_PASSWORD" >&2; exit 1; fi
+
+          push_secret "OPENAI_API_KEY" "$OPENAI_API_KEY"
+          push_secret "IMAP_USERNAME" "$IMAP_USERNAME"
+          push_secret "IMAP_PASSWORD" "$IMAP_PASSWORD"
+
+      - name: Build and push image
+        run: |
+          IMAGE=gcr.io/${{ secrets.GCP_PROJECT }}/prompt-driven-email:${{ github.sha }}
+          docker build -t $IMAGE .
+          docker push $IMAGE
+
+      - name: Deploy to Cloud Run
+        run: |
+          IMAGE=gcr.io/${{ secrets.GCP_PROJECT }}/prompt-driven-email:${{ github.sha }}
+          # Deploy and mount secrets into environment variables using --set-secrets
+          gcloud run deploy ${{ secrets.CLOUD_RUN_SERVICE }} \
+            --image $IMAGE \
+            --region ${{ secrets.CLOUD_RUN_REGION }} \
+            --platform managed \
+            --allow-unauthenticated \
+            --set-secrets "OPENAI_API_KEY=OPENAI_API_KEY:latest,IMAP_USERNAME=IMAP_USERNAME:latest,IMAP_PASSWORD=IMAP_PASSWORD:latest"

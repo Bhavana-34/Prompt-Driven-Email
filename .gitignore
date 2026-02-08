@@ -1,5 +1,7 @@
 .venv/
 __pycache__/
 data/email_agent.db
-.env
+.env.example
 *.pyc
+.streamlit/secrets.toml
+.env

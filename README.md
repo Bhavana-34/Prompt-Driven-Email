@@ -1,6 +1,6 @@
 # Email Productivity Agent
 
-An interactive, prompt-driven Email Productivity Agent built with Streamlit and OpenAI. It processes a mock inbox (or your own), categorizes emails, extracts action items, drafts replies, and offers a chat-style assistant for each email. Prompts are editable so you control the agent "brain".
+An interactive, prompt-driven Email Productivity Agent built with Streamlit and OpenAI. It processes a mock inbox (or your own), categorizes emails, extracts action items, drafts replies, and offers a chat-style assistant for each email. Prompts are editable so you control the agent "brain". A FastAPI service is also included for API-based deployments.
 
 ## Features
 - Load a mock inbox of sample emails
@@ -36,8 +36,42 @@ streamlit run app.py
 
 4. The app will create a local SQLite DB at `data/email_agent.db` and load the mock inbox.
 
+## FastAPI API (recommended for deployment)
+
+Run the API locally:
+
+```powershell
+uvicorn fastapi_app:app --host 0.0.0.0 --port 8000
+```
+
+Key endpoints:
+- GET /health
+- POST /ingest/gmail (ingest Gmail via IMAP)
+- GET /emails
+- GET /emails/{email_id}
+- POST /emails/{email_id}/process
+- POST /emails/{email_id}/chat
+- POST /emails/{email_id}/draft
+- GET /emails/{email_id}/drafts
+
+### Gmail IMAP setup
+1. Enable 2-Step Verification on your Gmail account.
+2. Create an App Password in your Google Account (recommended).
+3. Set environment variables:
+
+```text
+IMAP_SERVER=imap.gmail.com
+IMAP_USERNAME=you@gmail.com
+IMAP_PASSWORD=your_app_password
+IMAP_MAILBOX=INBOX
+IMAP_LIMIT=50
+```
+
+Then call POST /ingest/gmail to pull messages into the local database.
+
 ## Files of Interest
 - `app.py` — Streamlit frontend + orchestration
+- `fastapi_app.py` — FastAPI service for API deployment
 - `llm.py` — Minimal LLM wrapper using OpenAI (configurable via env)
 - `db.py` — SQLite helpers for emails, prompts, processed results, and drafts
 - `data/mock_emails.json` — sample inbox (15 emails)
@@ -78,7 +112,7 @@ streamlit run app.py
 
 ```powershell
 docker build -t email-agent .
-docker run -p 8501:8501 -e OPENAI_API_KEY=%OPENAI_API_KEY% email-agent
+docker run -p 8000:8000 -e OPENAI_API_KEY=%OPENAI_API_KEY% -e IMAP_USERNAME=%IMAP_USERNAME% -e IMAP_PASSWORD=%IMAP_PASSWORD% email-agent
 ```
 
 3) Container hosts / Cloud providers
@@ -107,7 +141,7 @@ If you prefer a managed Streamlit hosting:
 
 4) Heroku (legacy / not recommended for new projects)
 
-- The included `Procfile` can be used for Heroku-like platforms. Add `OPENAI_API_KEY` as a config var.
+- The included `Procfile` can be used for Heroku-like platforms. Add `OPENAI_API_KEY`, `IMAP_USERNAME`, and `IMAP_PASSWORD` as config vars.
 
 ## Demo Recording Checklist
 - Open the app and load the mock inbox

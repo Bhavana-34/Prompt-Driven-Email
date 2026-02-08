@@ -6,13 +6,36 @@ from typing import Any, Dict, List
 OPENAI_KEY = os.getenv('OPENAI_API_KEY')
 OPENAI_MODEL = os.getenv('OPENAI_MODEL', 'gpt-4')
 
+# Prefer environment variables, but fall back to Streamlit secrets if available.
+if not OPENAI_KEY:
+    try:
+        import streamlit as _st
+        OPENAI_KEY = _st.secrets.get('OPENAI_API_KEY') if _st.secrets else None
+        # allow model override via secrets
+        if not os.getenv('OPENAI_MODEL'):
+            OPENAI_MODEL = _st.secrets.get('OPENAI_MODEL', OPENAI_MODEL)
+    except Exception:
+        # streamlit not available or no secrets configured
+        OPENAI_KEY = OPENAI_KEY
+
 try:
     import openai
     if OPENAI_KEY:
-        openai.api_key = OPENAI_KEY
+        # For openai<1.0
+        if hasattr(openai, 'api_key'):
+            openai.api_key = OPENAI_KEY
 except Exception:
     openai = None
 
+# For openai>=1.0
+try:
+    from openai import OpenAI
+    _openai_client = OpenAI(api_key=OPENAI_KEY) if OPENAI_KEY else None
+except Exception:
+    _openai_client = None
+
+# Convenience flag used throughout the module to detect mock-mode
+IS_MOCK = (openai is None) or (not OPENAI_KEY)
 
 def _mock_response(task: str):
     if task == 'categorize':
@@ -41,10 +64,30 @@ def _extract_json_from_text(text: str):
 
 
 def _call_openai(messages: List[Dict[str, str]], temperature: float = 0.3, max_tokens: int = 400) -> str:
-    if not openai or not OPENAI_KEY:
+    if not OPENAI_KEY:
+        return None
+    # openai>=1.0 client path
+    if _openai_client is not None:
+        try:
+            resp = _openai_client.chat.completions.create(
+                model=OPENAI_MODEL,
+                messages=messages,
+                temperature=temperature,
+                max_tokens=max_tokens,
+            )
+            return resp.choices[0].message.content
+        except Exception as e:
+            return f"[OPENAI_ERROR] {e}"
+    # openai<1.0 legacy path
+    if not openai:
         return None
     try:
-        resp = openai.ChatCompletion.create(model=OPENAI_MODEL, messages=messages, temperature=temperature, max_tokens=max_tokens)
+        resp = openai.ChatCompletion.create(
+            model=OPENAI_MODEL,
+            messages=messages,
+            temperature=temperature,
+            max_tokens=max_tokens,
+        )
         return resp['choices'][0]['message']['content']
     except Exception as e:
         # Return error message as string for higher-level handling
@@ -52,7 +95,7 @@ def _call_openai(messages: List[Dict[str, str]], temperature: float = 0.3, max_t
 
 
 def categorize(email_text: str, prompt: str) -> Dict[str, Any]:
-    if not openai or not OPENAI_KEY:
+    if IS_MOCK:
         return _mock_response('categorize')
     system_prompt = prompt or 'Classify the email into categories.'
     messages = [
@@ -73,7 +116,7 @@ def categorize(email_text: str, prompt: str) -> Dict[str, Any]:
 
 
 def extract_actions(email_text: str, prompt: str) -> List[Dict[str, Any]]:
-    if not openai or not OPENAI_KEY:
+    if IS_MOCK:
         return _mock_response('extract')
     messages = [
         {"role": "system", "content": prompt or 'Extract action items.'},
@@ -92,8 +135,13 @@ def extract_actions(email_text: str, prompt: str) -> List[Dict[str, Any]]:
 
 
 def chat_with_email(email_text: str, prompts: Dict[str, Any], user_query: str) -> str:
-    if not openai or not OPENAI_KEY:
-        return f"[MOCK ANSWER] For query: {user_query}\n\n(Provide OPENAI_API_KEY to enable real LLM answers.)"
+    if IS_MOCK:
+        # Professional, clear mock-mode response so the UI looks polished
+        return (
+            "MOCK MODE — no OpenAI API key configured.\n"
+            f"Example response for query: {user_query}\n\n"
+            "To enable real LLM answers set the environment variable `OPENAI_API_KEY` or add it to Streamlit secrets."
+        )
     system = prompts.get('chat_system_instructions') if prompts else 'You are the user\'s helpful email assistant.'
     # keep prompt context concise
     context_message = f"Email content:\n{email_text}\n\nUser query: {user_query}"
@@ -108,13 +156,13 @@ def chat_with_email(email_text: str, prompts: Dict[str, Any], user_query: str) -
 
 
 def generate_draft(email_text: str, prompt: str, tone: str = 'friendly') -> Dict[str, Any]:
-    if not openai or not OPENAI_KEY:
+    if IS_MOCK:
         return _mock_response('draft')
     # replace placeholder for tone when present
     try:
-        prompt_text = prompt.replace('{{tone}}', tone)
+        prompt_text = prompt.replace('{{tone}}', tone) if prompt else f'Write a reply in a {tone} tone.'
     except Exception:
-        prompt_text = prompt or ''
+        prompt_text = prompt or f'Write a reply in a {tone} tone.'
     messages = [
         {"role": "system", "content": prompt_text},
         {"role": "user", "content": email_text}

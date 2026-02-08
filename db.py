@@ -31,6 +31,24 @@ def load_mock_emails(json_path: str):
     conn.commit()
     conn.close()
 
+def save_emails(emails: List[Dict[str, Any]]):
+    """Insert emails if they don't already exist (by id)."""
+    init_db()
+    conn = sqlite3.connect(DB_PATH)
+    c = conn.cursor()
+    for e in emails:
+        if not e or 'id' not in e:
+            continue
+        c.execute('SELECT 1 FROM emails WHERE id=?', (e['id'],))
+        if c.fetchone():
+            continue
+        c.execute(
+            'INSERT INTO emails(id, sender, subject, timestamp, body) VALUES (?, ?, ?, ?, ?)',
+            (e.get('id'), e.get('sender', ''), e.get('subject', ''), e.get('timestamp', ''), e.get('body', ''))
+        )
+    conn.commit()
+    conn.close()
+
 def get_emails() -> List[Dict[str, Any]]:
     init_db()
     conn = sqlite3.connect(DB_PATH)
