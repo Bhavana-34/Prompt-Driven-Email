@@ -1,3 +1,5 @@
+You can run this app here
+https://prompt-driven-email-du8juwtcvuja9pqp4a93rr.streamlit.app/
 # Email Productivity Agent
 
 An interactive, prompt-driven Email Productivity Agent built with Streamlit and OpenAI. It processes a mock inbox (or your own), categorizes emails, extracts action items, drafts replies, and offers a chat-style assistant for each email. Prompts are editable so you control the agent "brain". A FastAPI service is also included for API-based deployments.
