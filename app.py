@@ -430,6 +430,12 @@ st.sidebar.markdown("<h2 style='text-align: center; color: #ffffff;'>⚙️ Conf
 try:
     llm_key = getattr(llm, 'OPENAI_KEY', None)
     llm_model = getattr(llm, 'OPENAI_MODEL', 'unknown')
+    try:
+        secrets_key = st.secrets.get('OPENAI_API_KEY') if st.secrets else None
+        if secrets_key and not llm_key:
+            llm_key = secrets_key
+    except Exception:
+        pass
 except Exception:
     llm_key = None
     llm_model = 'unknown'
@@ -539,7 +545,7 @@ if st.session_state.view_mode == 'inbox':
                 st.rerun()
         
         with col_btn2:
-            with st.popover("🌐 IMAP"):
+            with st.expander("🌐 IMAP", expanded=False):
                 st.markdown("### Connect Email")
                 provider = st.selectbox('Provider', ['Gmail', 'Outlook', 'Yahoo', 'iCloud', 'Custom'])
                 provider_hosts = {
@@ -548,10 +554,22 @@ if st.session_state.view_mode == 'inbox':
                     'Yahoo': 'imap.mail.yahoo.com',
                     'iCloud': 'imap.mail.me.com'
                 }
-                imap_server = st.text_input('Server', value=provider_hosts.get(provider, ''))
-                imap_user = st.text_input('Email')
-                imap_pass = st.text_input('Password', type='password')
-                imap_limit = st.number_input('Max Messages', value=50, min_value=1, max_value=500)
+                try:
+                    secrets = st.secrets if st.secrets else {}
+                except Exception:
+                    secrets = {}
+                imap_server_default = os.getenv('IMAP_SERVER') or secrets.get('IMAP_SERVER', provider_hosts.get(provider, ''))
+                imap_user_default = os.getenv('IMAP_USERNAME') or secrets.get('IMAP_USERNAME', '')
+                imap_pass_default = os.getenv('IMAP_PASSWORD') or secrets.get('IMAP_PASSWORD', '')
+                imap_limit_default = os.getenv('IMAP_LIMIT') or secrets.get('IMAP_LIMIT', 50)
+                try:
+                    imap_limit_default = int(imap_limit_default)
+                except Exception:
+                    imap_limit_default = 50
+                imap_server = st.text_input('Server', value=imap_server_default)
+                imap_user = st.text_input('Email', value=imap_user_default)
+                imap_pass = st.text_input('Password', type='password', value=imap_pass_default)
+                imap_limit = st.number_input('Max Messages', value=imap_limit_default, min_value=1, max_value=500)
                 
                 if provider == 'Gmail':
                     st.info('💡 Use App Password with 2FA')
